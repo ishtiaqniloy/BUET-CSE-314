@@ -112,7 +112,7 @@ do
 		cd ..
 
 		rm -rf temp
-		rm -f "$zipName"
+		#rm -f "$zipName"
 	else	#zip name without the roll
 		echo rollnum not found in the zip name #NO TEST CASE FOUND
 
