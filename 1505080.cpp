@@ -14,9 +14,9 @@
 
 #define chefX_SLEEP_TIME 1
 #define chefY_SLEEP_TIME 1
-#define chefZ_SLEEP_TIME 2
-#define waiter1_SLEEP_TIME 5
-#define waiter2_SLEEP_TIME 5
+#define chefZ_SLEEP_TIME 5
+#define waiter1_SLEEP_TIME 15
+#define waiter2_SLEEP_TIME 15
 
 
 using namespace std;
@@ -106,7 +106,7 @@ void * chefXFunc(void * arg){	//produces chocolate cake
 
 		pthread_mutex_lock(&q1_lock);	//get lock on q1
 
-		sleep(chefX_SLEEP_TIME);
+		sleep(1);
 		cake = new Cake(id, true);
 
 		q1.push(cake);
@@ -121,6 +121,8 @@ void * chefXFunc(void * arg){	//produces chocolate cake
 
 		id++;
 
+		sleep(chefX_SLEEP_TIME);
+	
 	}
 
 
@@ -145,7 +147,7 @@ void * chefYFunc(void * arg){		//produces vanilla cake
 
 		pthread_mutex_lock(&q1_lock);	//get lock on q1
 
-		sleep(chefY_SLEEP_TIME);
+		sleep(1);
 		cake = new Cake(id, false);
 
 		q1.push(cake);
@@ -159,6 +161,8 @@ void * chefYFunc(void * arg){		//produces vanilla cake
 		pthread_mutex_unlock(&console_lock);
 
 		id++;
+		sleep(chefY_SLEEP_TIME);
+
 
 	}
 
@@ -180,7 +184,7 @@ void * chefZFunc(void * arg){			//decorates cake
 		sem_wait(&q1_full);	//if q1 has cakes
 		pthread_mutex_lock(&q1_lock);	//get lock on q1
 
-		sleep(chefZ_SLEEP_TIME);
+		sleep(1);
 		Cake* cake = q1.front();
 		q1.pop();
 
@@ -201,7 +205,7 @@ void * chefZFunc(void * arg){			//decorates cake
 
 			pthread_mutex_lock(&q3_lock);	//get lock on q3
 
-			sleep(chefZ_SLEEP_TIME);
+			sleep(1);
 			cake->decorate();
 
 			q3.push(cake);
@@ -230,7 +234,7 @@ void * chefZFunc(void * arg){			//decorates cake
 
 			pthread_mutex_lock(&q2_lock);	//get lock on q2
 
-			sleep(chefZ_SLEEP_TIME);
+			sleep(1);
 			cake->decorate();
 
 			q2.push(cake);
@@ -245,6 +249,8 @@ void * chefZFunc(void * arg){			//decorates cake
 
 
 		}
+		sleep(chefZ_SLEEP_TIME);
+
 
 		
 
@@ -268,7 +274,7 @@ void * waiter1Func(void * arg){			//serves chocolate cake from q3
 		sem_wait(&q3_full);	//if q3 has cakes
 		pthread_mutex_lock(&q3_lock);	//get lock on q3
 
-		sleep(waiter1_SLEEP_TIME);
+		sleep(1);
 		Cake* cake = q3.front();
 		q3.pop();
 
@@ -281,7 +287,10 @@ void * waiter1Func(void * arg){			//serves chocolate cake from q3
 		pthread_mutex_unlock(&console_lock);
 
 		delete cake;
+		
 
+		sleep(waiter1_SLEEP_TIME);
+		
 
 	}
 	
@@ -303,7 +312,7 @@ void * waiter2Func(void * arg){			//serves vanilla cake from q2
 		sem_wait(&q2_full);	//if q2 has cakes
 		pthread_mutex_lock(&q2_lock);	//get lock on q2
 
-		sleep(waiter2_SLEEP_TIME);
+		sleep(1);
 		Cake* cake = q2.front();
 		q2.pop();
 
@@ -316,6 +325,9 @@ void * waiter2Func(void * arg){			//serves vanilla cake from q2
 		pthread_mutex_unlock(&console_lock);
 
 		delete cake;
+
+
+		sleep(waiter2_SLEEP_TIME);
 
 
 	}
