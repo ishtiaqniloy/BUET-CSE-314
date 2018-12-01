@@ -112,8 +112,7 @@ void * chefXFunc(void * arg){	//produces chocolate cake
 		q1.push(cake);
 
 		pthread_mutex_lock(&console_lock);
-		printf("ChefX produced Choclate cake with ID: %d\n", id);
-		printf("q1 new size = %d\n", q1.size());
+		printf("ChefX produced Choclate cake with ID: %d\nq1 new size = %d\n", id, q1.size());
 		pthread_mutex_unlock(&console_lock);
 
 		pthread_mutex_unlock(&q1_lock);
@@ -154,8 +153,7 @@ void * chefYFunc(void * arg){		//produces vanilla cake
 		q1.push(cake);
 
 		pthread_mutex_lock(&console_lock);
-		printf("ChefY produced Vanilla cake with ID: %d\n", id);
-		printf("q1 new size = %d\n", q1.size());
+		printf("ChefY produced Vanilla cake with ID: %d\nq1 new size = %d\n", id, q1.size());
 		pthread_mutex_unlock(&console_lock);
 
 		pthread_mutex_unlock(&q1_lock);
@@ -193,18 +191,23 @@ void * chefZFunc(void * arg){			//decorates cake
 		Cake* cake = q1.front();
 		q1.pop();
 
-		sz = q1.size();
+		if(cake->isChocolate){
+			pthread_mutex_lock(&console_lock);
+			printf("ChefZ got Chocolate from q1 cake with ID: %d\nq1 new size = %d\n", cake->id, q1.size());
+			pthread_mutex_unlock(&console_lock);
+		}
+		else{
+			pthread_mutex_lock(&console_lock);
+			printf("ChefZ got Vanilla cake from q1 with ID: %d\nq1 new size = %d\n", cake->id, q1.size());
+			pthread_mutex_unlock(&console_lock);
+		}
 
 		pthread_mutex_unlock(&q1_lock);
 
 		sem_post(&q1_empty);
 
 		if(cake->isChocolate){
-			pthread_mutex_lock(&console_lock);
-			printf("ChefZ got Chocolate from q1 cake with ID: %d\n", cake->id);
-			printf("q1 new size = %d\n", sz);
-			pthread_mutex_unlock(&console_lock);
-
+			
 			pthread_mutex_lock(&console_lock);
 			printf("ChefZ waiting for q3 empty slots...\n");
 			pthread_mutex_unlock(&console_lock);	
@@ -219,8 +222,7 @@ void * chefZFunc(void * arg){			//decorates cake
 			q3.push(cake);
 
 			pthread_mutex_lock(&console_lock);
-			printf("ChefZ decorated Chocolate cake with ID: %d\n", cake->id);
-			printf("q3 new size = %d\n", q3.size());
+			printf("ChefZ decorated Chocolate cake with ID: %d\nq3 new size = %d\n", cake->id, q3.size());
 			pthread_mutex_unlock(&console_lock);
 
 			pthread_mutex_unlock(&q3_lock);
@@ -231,10 +233,6 @@ void * chefZFunc(void * arg){			//decorates cake
 
 		}
 		else{
-			pthread_mutex_lock(&console_lock);
-			printf("ChefZ got Vanilla cake from q1 with ID: %d\n", cake->id);
-			printf("q1 new size = %d\n", sz);
-			pthread_mutex_unlock(&console_lock);
 
 			pthread_mutex_lock(&console_lock);
 			printf("ChefZ waiting for q2 empty slots...\n");
@@ -250,8 +248,7 @@ void * chefZFunc(void * arg){			//decorates cake
 			q2.push(cake);
 
 			pthread_mutex_lock(&console_lock);
-			printf("ChefZ decorated Vanilla cake with ID: %d\n", cake->id);
-			printf("q2 new size = %d\n", q2.size());
+			printf("ChefZ decorated Vanilla cake with ID: %d\nq2 new size = %d\n", cake->id, q2.size());
 			pthread_mutex_unlock(&console_lock);
 
 			pthread_mutex_unlock(&q2_lock);
@@ -290,8 +287,7 @@ void * waiter1Func(void * arg){			//serves chocolate cake from q3
 		q3.pop();
 
 		pthread_mutex_lock(&console_lock);
-		printf("Waiter1 served Chocolate cake from q3 with ID: %d\n", cake->id);
-		printf("q3 new size = %d\n", q3.size());
+		printf("Waiter1 served Chocolate cake from q3 with ID: %d\nq3 new size = %d\n", cake->id, q3.size());
 		pthread_mutex_unlock(&console_lock);
 
 		pthread_mutex_unlock(&q3_lock);
@@ -329,8 +325,7 @@ void * waiter2Func(void * arg){			//serves vanilla cake from q2
 		q2.pop();
 
 		pthread_mutex_lock(&console_lock);
-		printf("Waiter2 served Vanilla cake from q2 with ID: %d\n", cake->id);
-		printf("q2 new size = %d\n", q2.size());
+		printf("Waiter2 served Vanilla cake from q2 with ID: %d\nq2 new size = %d\n", cake->id, q2.size());
 		pthread_mutex_unlock(&console_lock);
 
 		pthread_mutex_unlock(&q2_lock);
