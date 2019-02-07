@@ -1,0 +1,70 @@
+$subl syscall.h
+
+add a system call at the last
+#define SYS_abdullah_ishtiaq 22
+
+
+$subl syscall.c
+
+extern int sys_abdullah_ishtiaq(void);
+...
+...
+[SYS_abdullah_ishtiaq]   sys_abdullah_ishtiaq,
+
+$subl sysproc.c
+
+int 
+sys_abdullah_ishtiaq(void)
+{
+  
+  cprintf("Abdullah Al Ishtiaq\t\t\t01/03/1998\n");
+
+  return 1505080;
+
+}
+
+
+$subl usys.S
+
+SYSCALL(abdullah_ishtiaq)
+
+$subl user.h
+
+int abdullah_ishtiaq(void);
+
+================================
+Done creating system call
+================================
+
+$subl offline1.c
+
+#include "types.h"
+#include "user.h"
+
+int main(int argc, char *argv[])
+{
+	int returnValue;
+	returnValue = abdullah_ishtiaq();
+
+	printf( 0, "%d\n", returnValue); 
+
+
+	exit();
+
+}
+
+
+$subl Makefile
+
+UPROGS=\
+...
+_offline1\
+
+
+$make clean
+
+$make
+
+$make qemu
+
+offline1
