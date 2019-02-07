@@ -1,5 +1,5 @@
 # CSE_314_xv6
-Modified xv6 for CSE 314 Offline 1 in July 2018 term, BUET,CSE
+Modified xv6 for CSE 314 Offline 1 in July 2018 term, BUET,CSE.
 Here a new system call has been added
 
 original xv6-public is forked from here: https://github.com/mit-pdos/xv6-public
