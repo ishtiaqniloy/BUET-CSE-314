@@ -35,7 +35,13 @@ int main(int argc, char *argv[])
 
 	returnValue = testCall();
 
-	printf( 0, "Returned value = %d\n", returnValue);
+	printf( 0, "Returned value after 1st sbrk = %d\n", returnValue);
+
+	sbrk(-82000);
+
+	returnValue = testCall();
+
+	printf( 0, "Returned value after 2nd sbrk = %d\n", returnValue);
 
 
 

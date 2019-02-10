@@ -90,6 +90,10 @@ processInit(struct proc *p){  //unused
 
 void copyProcessSwapData(struct proc *np, struct proc *p){
 
+  if(p->swapFile==0 || strncmp(p->name, "init", 4)==0 ){  //|| strncmp(p->name, "sh", 2)==0
+    return;
+  }
+
   np->takenPhysPage = p->takenPhysPage;
   np->takenSwapPage = p->takenSwapPage;
 
@@ -107,9 +111,6 @@ void copyProcessSwapData(struct proc *np, struct proc *p){
 
   createSwapFile(np); ///will be changed later
 
-  if(p->swapFile==0 || strncmp(p->name, "init", 4)==0 || strncmp(p->name, "sh", 2)==0 ){
-    return;
-  }
 
   char buf[PGSIZE/2];
 

@@ -410,6 +410,9 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 // process size.  Returns the new process size.
 
 ///original
+
+/*
+
 int
 deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 {
@@ -435,10 +438,10 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
   }
   return newsz;
 }
-
+*/
 ///modified
 
-/*
+
 int
 deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 {
@@ -531,7 +534,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
     }
     else if( (*pte&PTE_P)==0 && (*pte&(~PTE_PG))!=0 ){  ///in swap file
 
-      if(strncmp(p->name, "init", 4)==0 || strncmp(p->name, "sh", 2)==0 ){
+      if(strncmp(p->name, "init", 4)==0 ){  //|| strncmp(p->name, "sh", 2)==0
         goto swapBypass;
       }
 
@@ -570,7 +573,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
   return newsz;
 
 }
-*/
+
 
 
 // Free a page table and all the physical memory pages

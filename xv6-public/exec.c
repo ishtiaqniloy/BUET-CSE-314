@@ -19,6 +19,8 @@ exec(char *path, char **argv)
   pde_t *pgdir, *oldpgdir;
   struct proc *curproc = myproc();
 
+
+
   begin_op();
 
   if((ip = namei(path)) == 0){
@@ -29,19 +31,10 @@ exec(char *path, char **argv)
   ilock(ip);
   pgdir = 0;
 
-  // Check ELF header
-  if(readi(ip, (char*)&elf, 0, sizeof(elf)) != sizeof(elf))
-    goto bad;
-  if(elf.magic != ELF_MAGIC)
-    goto bad;
 
-  if((pgdir = setupkvm()) == 0)
-    goto bad;
+  ///initialize again for exec
 
-
-///initialize again for exec
-
-    curproc->swapFile=0;
+/*    curproc->swapFile=0;
     curproc->takenPhysPage = 0;
     curproc->takenSwapPage = 0;
 
@@ -56,6 +49,19 @@ exec(char *path, char **argv)
       curproc->swapPageInfo[i].dataPresent = 0;
 
     }
+*/
+
+  // Check ELF header
+  if(readi(ip, (char*)&elf, 0, sizeof(elf)) != sizeof(elf))
+    goto bad;
+  if(elf.magic != ELF_MAGIC)
+    goto bad;
+
+  if((pgdir = setupkvm()) == 0)
+    goto bad;
+
+
+
 
 
 
