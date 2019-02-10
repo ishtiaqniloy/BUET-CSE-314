@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 
 	printf( 0, "Returned value after 1st sbrk = %d\n", returnValue);
 
-	sbrk(-82000);
+	sbrk(-75000);
 
 	returnValue = testCall();
 

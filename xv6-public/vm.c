@@ -467,7 +467,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
         goto queueBypass;
       }
 
-      cprintf("\nIn deallocuvm(): should remove %d from MAIN MEMORY for pid=%d, name=%s\n", a, p->pid, p->name);
+      //cprintf("\nIn deallocuvm(): should remove %d from MAIN MEMORY for pid=%d, name=%s\n", a, p->pid, p->name);
 
       char *va = (char*) a;
 
@@ -484,7 +484,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       }
 
       if(idx == INVALID_QUEUE_IDX){
-          cprintf("NOT FOUND IN QUEUE(1)\n");
+          //cprintf("NOT FOUND IN QUEUE(1)\n");
           goto queueBypass;
       }
 
@@ -500,7 +500,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
         }
 
         if(p->physPageInfo[parentIdx].nextIdx != idx){
-          cprintf("NOT FOUND IN QUEUE(2)\n");
+          //cprintf("NOT FOUND IN QUEUE(2)\n");
           goto queueBypass;
         }
 
@@ -538,7 +538,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
         goto swapBypass;
       }
 
-      cprintf("\nIn deallocuvm(): should remove %d from SWAP for pid=%d, name=%s\n", a, p->pid, p->name);
+      //cprintf("\nIn deallocuvm(): should remove %d from SWAP for pid=%d, name=%s\n", a, p->pid, p->name);
 
       char *va = (char*) a;
 
@@ -551,7 +551,7 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       }
 
       if(swapIdx==INVALID_QUEUE_IDX){
-        cprintf("NOT FOUND IN SWAP\n");
+        //cprintf("NOT FOUND IN SWAP\n");
         goto swapBypass;
       }
 
