@@ -104,7 +104,7 @@ sys_testCall(void)
 {
     cprintf("In test system call\n");
 
-    growproc(20000);
+    //growproc(20000);
 
     /*createSwapFile(myproc());
 

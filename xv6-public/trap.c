@@ -270,16 +270,16 @@ trap(struct trapframe *tf)
 
 
       readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE, PGSIZE/4);
-      safestrcpy(swapVa, buf, PGSIZE/4);
+      memmove(swapVa, buf, PGSIZE/4);
 
       readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
-      safestrcpy(swapVa+PGSIZE/4, buf, PGSIZE/4);
+      memmove(swapVa+PGSIZE/4, buf, PGSIZE/4);
 
       readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
-      safestrcpy(swapVa+2*PGSIZE/4, buf, PGSIZE/4);
+      memmove(swapVa+2*PGSIZE/4, buf, PGSIZE/4);
 
       readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
-      safestrcpy(swapVa+3*PGSIZE/4, buf, PGSIZE/4);
+      memmove(swapVa+3*PGSIZE/4, buf, PGSIZE/4);
 
 
 

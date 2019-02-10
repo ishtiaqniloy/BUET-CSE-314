@@ -250,7 +250,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
     }
 
     if(p->takenPhysPage>=MAX_PSYC_PAGES){
-      cprintf("In allocuvm(): Page needs to be swapped out. pid:%d, name:%s\n", p->pid, p->name);
+      cprintf("\nIn allocuvm(): Page needs to be swapped out. pid:%d, name:%s\n", p->pid, p->name);
 
 
       //swapPage(myproc());
@@ -302,7 +302,19 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
         return a;
       }
 
-      writeToSwapFile(p, headVa, swapIdx*PGSIZE, PGSIZE);
+      char buf[PGSIZE/4];
+
+      memmove(buf, headVa, PGSIZE/4);
+      writeToSwapFile(p, buf, swapIdx*PGSIZE, PGSIZE/4);
+
+      memmove(buf, headVa+PGSIZE/4, PGSIZE/4);
+      writeToSwapFile(p, buf, swapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
+
+      memmove(buf, headVa+2*PGSIZE/4, PGSIZE/4);
+      writeToSwapFile(p, buf, swapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
+
+      memmove(buf, headVa+3*PGSIZE/4, PGSIZE/4);
+      writeToSwapFile(p, buf, swapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
 
       p->swapPageInfo[swapIdx].dataPresent = 1;
       p->swapPageInfo[swapIdx].va = headVa;
@@ -371,7 +383,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
         p->takenPhysPage = p->takenPhysPage+1;
 
 
-      cprintf("New Page allocated at idx = %d, takenPhysPage = %d for pid=%d, name=%s\n", idx, p->takenPhysPage, p->pid, p->name);
+      cprintf("\nNew Page allocated at idx = %d, takenPhysPage = %d for pid=%d, name=%s\n", idx, p->takenPhysPage, p->pid, p->name);
 
   }
   //no need for else as it is done previously

@@ -5,10 +5,10 @@ int main(int argc, char *argv[])
 {
 //    int i = 1;
 
-    sbrk(100000);
 
+  int returnValue;
 
-    printf(0, "%d\n\n\n", (int*)0x9fffff2f);
+    sbrk(80000);
 
     //printf(1, "%d\n", sbrk(20000));
 
@@ -37,7 +37,6 @@ int main(int argc, char *argv[])
     printf(1, "%s\n", writeBuffer5);
 */
 
-  int returnValue;
 	returnValue = testCall();
 
 	printf( 0, "Returned value = %d\n", returnValue);
