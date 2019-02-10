@@ -25,13 +25,9 @@ int main(int argc, char *argv[])
     /*char writeBuffer3[3000];
     writeBuffer3[0] = 0;
     printf(1, "%s\n", writeBuffer3);
-
-
     char writeBuffer4[3000];
     writeBuffer4[0] = 0;
     printf(1, "%s\n", writeBuffer4);
-
-
     char writeBuffer5[3000];
     writeBuffer5[0] = 0;
     printf(1, "%s\n", writeBuffer5);

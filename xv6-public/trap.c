@@ -142,7 +142,7 @@ trap(struct trapframe *tf)
 
         for(int i=0; i<MAX_PSYC_PAGES; i++){
           if(myproc()->swapPageInfo[i].va == va && myproc()->swapPageInfo[i].dataPresent == 1){
-            cprintf("found swapIdx = %d\n", i );
+            //cprintf("found swapIdx = %d\n", i );
             swapIdx = i;
             break;
           }
@@ -197,7 +197,7 @@ trap(struct trapframe *tf)
         myproc()->headOfQueueIdx = myproc()->physPageInfo[headIdx].nextIdx;
         myproc()->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
 
-        cprintf("headIdx = %d, new headIdx = %d\n", headIdx, myproc()->headOfQueueIdx);
+        //cprintf("headIdx = %d, new headIdx = %d\n", headIdx, myproc()->headOfQueueIdx);
 
         ///writing content of head to swap file
         writeToSwapFile(myproc(), headVa, swapIdx*PGSIZE, PGSIZE);
@@ -210,11 +210,11 @@ trap(struct trapframe *tf)
         ///updating pgdir
         kfree((char*)PTE_ADDR(P2V(*walkpgdir(myproc()->pgdir, headVa, 0))));   //freeing headVa
 
-        cprintf("headVa = %d\n", headVa);
+        //cprintf("headVa = %d\n", headVa);
         pte_t *pteHead = walkpgdir(myproc()->pgdir, headVa, 0);      //now written to swap file
-        cprintf("prev pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
+       // cprintf("prev pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
         *pteHead = (*pteHead|PTE_PG)&(~PTE_P);
-        cprintf("new pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
+        //cprintf("new pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
 
 
 
@@ -225,11 +225,11 @@ trap(struct trapframe *tf)
         }
 
 
-        cprintf("swapVa = %d\n", swapVa);
+        //cprintf("swapVa = %d\n", swapVa);
         pte_t *pteSwap = walkpgdir(myproc()->pgdir, swapVa, 0);    //will be brought back to memory
-        cprintf("prev pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
+        //cprintf("prev pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
         *pteSwap = (((V2P(mem))>>12)<<12 |PTE_P|PTE_W|PTE_U ) ;
-        cprintf("new pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
+        //cprintf("new pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
 
 
         ///writing previously swapped page to memory

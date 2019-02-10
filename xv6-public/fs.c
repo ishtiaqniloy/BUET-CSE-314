@@ -799,7 +799,7 @@ writeToSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size)
 {
 
     cprintf("Writing %d bytes to swap file for pid:%d, name:%s, at offset = %d\n", size, p->pid, p->name, placeOnFile);
-    cprintf("Buffer at %d = %s\n",buffer, buffer);
+    //cprintf("Buffer at %d = %s\n",buffer, buffer);
 
 	p->swapFile->off = placeOnFile;
 

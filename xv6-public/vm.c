@@ -327,12 +327,13 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       ///updating pgdir
       kfree((char*)PTE_ADDR(P2V(*walkpgdir(p->pgdir, headVa, 0))));
 
-      cprintf("headVa = %d\n", headVa);
+      //cprintf("headVa = %d\n", headVa);
       pte_t *pteTemp = walkpgdir(p->pgdir, headVa, 0);
-      cprintf("prev pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
+      //cprintf("prev pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
       *pteTemp = (*pteTemp|PTE_PG)&(~PTE_P);
-      cprintf("new pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
+      //cprintf("new pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
 
+      cprintf("Swapped %d to swap, allocated %d\n", headVa, a);
 
       newPageCreated=0;
     }
@@ -383,7 +384,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
         p->takenPhysPage = p->takenPhysPage+1;
 
 
-      cprintf("\nNew Page allocated at idx = %d, takenPhysPage = %d for pid=%d, name=%s\n", idx, p->takenPhysPage, p->pid, p->name);
+      cprintf("\nNew Page %d allocated at idx = %d, takenPhysPage = %d for pid=%d, name=%s\n", a, idx, p->takenPhysPage, p->pid, p->name);
 
   }
   //no need for else as it is done previously
@@ -407,6 +408,8 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 // newsz.  oldsz and newsz need not be page-aligned, nor does newsz
 // need to be less than oldsz.  oldsz can be larger than the actual
 // process size.  Returns the new process size.
+
+///original
 int
 deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 {
@@ -432,6 +435,143 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
   }
   return newsz;
 }
+
+///modified
+
+/*
+int
+deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+{
+  pte_t *pte;
+  uint a, pa;
+
+  struct proc *p = myproc();
+
+  if(newsz >= oldsz)
+    return oldsz;
+
+  a = PGROUNDUP(newsz);
+  for(; a  < oldsz; a += PGSIZE){
+    pte = walkpgdir(pgdir, (char*)a, 0);
+
+      if(!pte){
+        a = PGADDR(PDX(a) + 1, 0, 0) - PGSIZE;
+
+      }
+      else if((*pte & PTE_P) != 0){ ///should remove from main memory
+
+      if(strncmp(p->name, "init", 4)==0 || strncmp(p->name, "sh", 2)==0 ){
+        goto queueBypass;
+      }
+
+      cprintf("\nIn deallocuvm(): should remove %d from MAIN MEMORY for pid=%d, name=%s\n", a, p->pid, p->name);
+
+      char *va = (char*) a;
+
+
+      ///update queue
+      int idx = INVALID_QUEUE_IDX;
+      int parentIdx = INVALID_QUEUE_IDX;
+
+      for(int i=0; i<MAX_PSYC_PAGES; i++){
+        if(p->physPageInfo[i].va == va && p->physPageInfo[i].dataPresent == 1){
+          idx = i;
+          break;
+        }
+      }
+
+      if(idx == INVALID_QUEUE_IDX){
+          cprintf("NOT FOUND IN QUEUE(1)\n");
+          goto queueBypass;
+      }
+
+
+      if(idx == p->headOfQueueIdx){ //in head
+        p->headOfQueueIdx = p->physPageInfo[idx].nextIdx;
+      }
+      else{
+        parentIdx = p->headOfQueueIdx;
+
+        while(p->physPageInfo[parentIdx].nextIdx != idx && p->physPageInfo[parentIdx].nextIdx != INVALID_QUEUE_IDX){
+          parentIdx = p->physPageInfo[parentIdx].nextIdx;
+        }
+
+        if(p->physPageInfo[parentIdx].nextIdx != idx){
+          cprintf("NOT FOUND IN QUEUE(2)\n");
+          goto queueBypass;
+        }
+
+        p->physPageInfo[parentIdx].nextIdx = p->physPageInfo[idx].nextIdx; //parent to next, skipping idx
+
+
+      }
+
+      p->physPageInfo[idx].va = INVALID_ADDRESS;
+      p->physPageInfo[idx].dataPresent = 0;
+      p->physPageInfo[idx].nextIdx = INVALID_QUEUE_IDX;
+
+      p->takenPhysPage--;
+
+      cprintf("Removed %d from MAIN MEMORY for pid=%d, name=%s\n", a, p->pid, p->name);
+
+      queueBypass:
+
+      pa = PTE_ADDR(*pte);
+
+      if(pa == 0)
+        panic("kfree");
+      char *v = P2V(pa);
+      kfree(v);
+
+      *pte = 0;
+
+
+
+
+    }
+    else if( (*pte&PTE_P)==0 && (*pte&(~PTE_PG))!=0 ){  ///in swap file
+
+      if(strncmp(p->name, "init", 4)==0 || strncmp(p->name, "sh", 2)==0 ){
+        goto swapBypass;
+      }
+
+      cprintf("\nIn deallocuvm(): should remove %d from SWAP for pid=%d, name=%s\n", a, p->pid, p->name);
+
+      char *va = (char*) a;
+
+      int swapIdx = INVALID_QUEUE_IDX;
+      for(int i=0; i<MAX_PSYC_PAGES; i++){
+        if(p->swapPageInfo[i].va == va && p->swapPageInfo[i].dataPresent == 1){
+          swapIdx = i;
+          break;
+        }
+      }
+
+      if(swapIdx==INVALID_QUEUE_IDX){
+        cprintf("NOT FOUND IN SWAP\n");
+        goto swapBypass;
+      }
+
+      p->swapPageInfo[swapIdx].va = INVALID_ADDRESS;
+      p->swapPageInfo[swapIdx].dataPresent = 0;
+
+      p->takenSwapPage--;
+
+      cprintf("Discarded %d from SWAP. pid=%d, name=%s\n", va, p->pid, p->name);
+
+
+      swapBypass:
+
+      *pte = 0;
+
+    }
+  }
+
+  return newsz;
+
+}
+*/
+
 
 // Free a page table and all the physical memory pages
 // in the user part.
