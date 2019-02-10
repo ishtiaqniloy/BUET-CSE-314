@@ -55,6 +55,12 @@ idtinit(void)
   lidt(idt, sizeof(idt));
 }
 
+void printQueue(){
+
+
+}
+
+
 //PAGEBREAK: 41
 void
 trap(struct trapframe *tf)
@@ -104,180 +110,185 @@ trap(struct trapframe *tf)
   //PAGEBREAK: 13
 
   case T_PGFLT:
-  ///new case added to handle paged out memory fault
+    ///new case added to handle paged out memory fault
 
-  if(myproc()->pid==1){
-    break;
-  }
-
-  cprintf("T_PGFLT\n");
-
-  struct proc *p;
-
-  char* va = (char*) rcr2();
-
-  cprintf("rcr2 = %d\n", va);
-
-  va = (char*) PGROUNDDOWN((int)va);
-
-  cprintf("va = %d\n", va);
-
-  pte_t *pteTemp = walkpgdir(myproc()->pgdir, va, 0);
-
-  cprintf("pteTemp=%d\n", *pteTemp);
-
-  if(  (*pteTemp&PTE_P)==0 && (*pteTemp&(~PTE_PG))!=0 ){
-
-      ///swapped out, va needs to be loaded back into the memory
-      p = myproc();
-      cprintf("T_PGFLT: va=%d page has to be loaded into the memory from swap file. pid = %d, name=%s\n", p->pid, p->name);
-
-
-      ///getting from what offset to read
-      int swapIdx = INVALID_QUEUE_IDX;
-
-      for(int i=0; i<MAX_PSYC_PAGES; i++){
-        if(p->swapPageInfo[i].va == va && p->swapPageInfo[i].dataPresent == 1){
-          cprintf("found swapIdx = %d\n", i );
-          swapIdx = i;
-          break;
-        }
-      }
-
-      if(swapIdx==INVALID_QUEUE_IDX){
-        panic("T_PGFLT: SWAP PAGE NOT FOUND");
-      }
-
-      ///storing in buffer from swap file
-      char* swapVa = p->swapPageInfo[swapIdx].va;
-
-
-      int dummySwapIdx = MAX_PSYC_PAGES;
-
-      for(int i=0; i<MAX_PSYC_PAGES; i++){
-        if(p->swapPageInfo[i].va == INVALID_ADDRESS && p->swapPageInfo[i].dataPresent == 0){
-          dummySwapIdx = i;
-          break;
-        }
-      }
-
-      char buf[PGSIZE/4];
-
-      readFromSwapFile(p, buf, swapIdx*PGSIZE, PGSIZE/4);
-      writeToSwapFile(p, buf, dummySwapIdx*PGSIZE, PGSIZE/4);
-
-      readFromSwapFile(p, buf, swapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
-      writeToSwapFile(p, buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
-
-      readFromSwapFile(p, buf, swapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
-      writeToSwapFile(p, buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
-
-      readFromSwapFile(p, buf, swapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
-      writeToSwapFile(p, buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
-
-
-
-      int headIdx = p->headOfQueueIdx;
-
-      if(headIdx == INVALID_QUEUE_IDX){
-        panic("QUEUE ERROR");
-      }
-
-      char *headVa = p->physPageInfo[headIdx].va;   //va of the page that need to be paged out
-
-      ///updating queue for newly swapped out page
-      p->physPageInfo[headIdx].va = INVALID_ADDRESS;
-      p->physPageInfo[headIdx].dataPresent = 0;
-
-      p->headOfQueueIdx = p->physPageInfo[headIdx].nextIdx;
-      p->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
-
-
-      ///writing to swap file
-      writeToSwapFile(p, headVa, swapIdx*PGSIZE, PGSIZE);
-
-      p->swapPageInfo[swapIdx].dataPresent = 1;
-      p->swapPageInfo[swapIdx].va = headVa;
-
-      ///updating pgdir for newly swapped out page
-      //kfree((char*)PTE_ADDR(P2V(*walkpgdir(p->pgdir, headVa, 0))));
-
-      pte_t *pteTemp2 = walkpgdir(p->pgdir, headVa, 0);
-      cprintf("prev pteTemp2 = %d\n", *walkpgdir(p->pgdir, headVa, 0));
-      *pteTemp2 = (*pteTemp2|PTE_PG)&(~PTE_P);
-      cprintf("new pteTemp2 = %d\n", *walkpgdir(p->pgdir, headVa, 0));
-      ///writing in swap file done
-
-
-
-      ///writing previously swapped page to memory
-
-      int idx = INVALID_QUEUE_IDX;
-
-      for(int i=0; i<MAX_PSYC_PAGES; i++){
-        if(p->physPageInfo[i].dataPresent == 0){
-          idx = i;
-          break;
-        }
-
-      }
-
-      if(idx == INVALID_QUEUE_IDX){
-        panic("PANIC UNEXPECTED NO FREE PAGES\n");
-      }
-
-      int tail = p->headOfQueueIdx;
-
-      if(tail == INVALID_QUEUE_IDX){    //queue empty
-          p->headOfQueueIdx = idx;
-      }
-      else{
-        while(p->physPageInfo[tail].nextIdx != INVALID_QUEUE_IDX){
-            tail = p->physPageInfo[tail].nextIdx;
-        }
-        p->physPageInfo[tail].nextIdx = idx;
-
-      }
-
-        p->physPageInfo[idx].nextIdx = INVALID_QUEUE_IDX;
-        p->physPageInfo[idx].dataPresent = 1;
-        p->physPageInfo[idx].va = swapVa;
-
-
-    char *mem = kalloc();
-    if(mem == 0){
-      cprintf("trap out of memory: pid=%d, name=%s\n", p->pid, p->name);
-      return;
+    if(myproc()->pid==1){
+      break;
     }
 
-    memset(mem, 0, PGSIZE);
+    cprintf("\n\nT_PGFLT\n");
 
-    pte_t *pteMem = walkpgdir(p->pgdir, swapVa, 0);
-    cprintf("prev pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
-    *pteMem = ( (V2P(mem)>>12)<<12 |PTE_P|PTE_W|PTE_U ) ;
-    cprintf("new pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
+    char* va = (char*) rcr2();
 
+    cprintf("rcr2 = %d\n", va);
 
-    readFromSwapFile(p, buf, dummySwapIdx*PGSIZE, PGSIZE/4);
-    safestrcpy(headVa, buf, PGSIZE/4);
+    va = (char*) PGROUNDDOWN((int)va);
 
-    readFromSwapFile(p, buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
-    safestrcpy(headVa+PGSIZE/4, buf, PGSIZE/4);
+    cprintf("va = %d\n", va);
 
-    readFromSwapFile(p, buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
-    safestrcpy(headVa+2*PGSIZE/4, buf, PGSIZE/4);
+    pte_t *pteTemp = walkpgdir(myproc()->pgdir, va, 0);
 
-    readFromSwapFile(p, buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
-    safestrcpy(headVa+3*PGSIZE/4, buf, PGSIZE/4);
+    cprintf("pteTemp=%d\n", *pteTemp);
 
+    if(  (*pteTemp&PTE_P)==0 && (*pteTemp&(~PTE_PG))!=0 ){
 
+        ///swapped out, va needs to be loaded back into the memory
+
+        cprintf("T_PGFLT: va=%d, pid = %d, name=%s\n",va, myproc()->pid, myproc()->name);
 
 
+        ///getting from what offset to read
+        int swapIdx = INVALID_QUEUE_IDX;
+
+        for(int i=0; i<MAX_PSYC_PAGES; i++){
+          if(myproc()->swapPageInfo[i].va == va && myproc()->swapPageInfo[i].dataPresent == 1){
+            cprintf("found swapIdx = %d\n", i );
+            swapIdx = i;
+            break;
+          }
+        }
+
+        if(swapIdx==INVALID_QUEUE_IDX){
+          panic("T_PGFLT: SWAP PAGE NOT FOUND");
+        }
 
 
-      return;
+        char* swapVa = myproc()->swapPageInfo[swapIdx].va;
 
-  }
+
+        ///storing in dummy offset in swap file
+        int dummySwapIdx = MAX_PSYC_PAGES;
+
+        for(int i=0; i<MAX_PSYC_PAGES; i++){
+          if(myproc()->swapPageInfo[i].va == INVALID_ADDRESS && myproc()->swapPageInfo[i].dataPresent == 0){
+            dummySwapIdx = i;
+            break;
+          }
+        }
+
+        char buf[PGSIZE/4];
+
+        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE, PGSIZE/4);
+        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE, PGSIZE/4);
+
+        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
+        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
+
+        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
+        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
+
+        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
+        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
+
+
+        ///updating queue for newly swapped out page
+
+
+        int headIdx = myproc()->headOfQueueIdx;
+        if(headIdx == INVALID_QUEUE_IDX){
+          panic("QUEUE ERROR");
+        }
+
+        char *headVa = myproc()->physPageInfo[headIdx].va;   //va of the page that need to be paged out
+
+        myproc()->physPageInfo[headIdx].va = INVALID_ADDRESS;
+        myproc()->physPageInfo[headIdx].dataPresent = 0;
+
+        myproc()->headOfQueueIdx = myproc()->physPageInfo[headIdx].nextIdx;
+        myproc()->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
+
+        cprintf("headIdx = %d, new headIdx = %d\n", headIdx, myproc()->headOfQueueIdx);
+
+        ///writing content of head to swap file
+        writeToSwapFile(myproc(), headVa, swapIdx*PGSIZE, PGSIZE);
+
+        myproc()->swapPageInfo[swapIdx].dataPresent = 1;
+        myproc()->swapPageInfo[swapIdx].va = headVa;
+
+
+
+        ///updating pgdir
+        kfree((char*)PTE_ADDR(P2V(*walkpgdir(myproc()->pgdir, headVa, 0))));   //freeing headVa
+
+        cprintf("headVa = %d\n", headVa);
+        pte_t *pteHead = walkpgdir(myproc()->pgdir, headVa, 0);      //now written to swap file
+        cprintf("prev pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
+        *pteHead = (*pteHead|PTE_PG)&(~PTE_P);
+        cprintf("new pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
+
+
+
+        char *mem = kalloc();   //new memory acquired
+        if(mem == 0){
+          cprintf("T_PGFLT out of memory: pid=%d, name=%s\n", myproc()->pid, myproc()->name);
+          return;
+        }
+
+
+        cprintf("swapVa = %d\n", swapVa);
+        pte_t *pteSwap = walkpgdir(myproc()->pgdir, swapVa, 0);    //will be brought back to memory
+        cprintf("prev pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
+        *pteSwap = (((V2P(mem))>>12)<<12 |PTE_P|PTE_W|PTE_U ) ;
+        cprintf("new pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
+
+
+        ///writing previously swapped page to memory
+
+        int idx = INVALID_QUEUE_IDX;  //where to write in array structure
+
+        for(int i=0; i<MAX_PSYC_PAGES; i++){
+          if(myproc()->physPageInfo[i].dataPresent == 0){
+            idx = i;
+            break;
+          }
+
+        }
+
+        if(idx == INVALID_QUEUE_IDX){
+          panic("PANIC UNEXPECTED NO FREE PAGES\n");
+        }
+
+
+        int tail = myproc()->headOfQueueIdx;   //finding tail of the queue
+
+        if(tail == INVALID_QUEUE_IDX){    //queue empty
+            myproc()->headOfQueueIdx = idx;
+        }
+        else{
+          while(myproc()->physPageInfo[tail].nextIdx != INVALID_QUEUE_IDX){
+              tail = myproc()->physPageInfo[tail].nextIdx;
+          }
+          myproc()->physPageInfo[tail].nextIdx = idx;
+
+        }
+
+          myproc()->physPageInfo[idx].nextIdx = INVALID_QUEUE_IDX;
+          myproc()->physPageInfo[idx].dataPresent = 1;
+          myproc()->physPageInfo[idx].va = swapVa;
+
+
+
+
+      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE, PGSIZE/4);
+      safestrcpy(swapVa, buf, PGSIZE/4);
+
+      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
+      safestrcpy(swapVa+PGSIZE/4, buf, PGSIZE/4);
+
+      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
+      safestrcpy(swapVa+2*PGSIZE/4, buf, PGSIZE/4);
+
+      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
+      safestrcpy(swapVa+3*PGSIZE/4, buf, PGSIZE/4);
+
+
+
+
+
+
+        return;
+
+    }
 
 
 

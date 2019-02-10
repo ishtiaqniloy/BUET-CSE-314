@@ -225,6 +225,8 @@ loaduvm(pde_t *pgdir, char *addr, struct inode *ip, uint offset, uint sz)
 int
 allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
 {
+
+  cprintf("\n\n");
   char *mem;
   uint a;
 
@@ -261,12 +263,27 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       char *headVa = p->physPageInfo[headIdx].va;   //va of the page that need to be paged out
 
       ///updating queue
-      p->physPageInfo[headIdx].va = (char*)a;
-      p->physPageInfo[headIdx].dataPresent = 1;
 
-      p->headOfQueueIdx = p->physPageInfo[headIdx].nextIdx;
 
-      p->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
+      p->headOfQueueIdx = p->physPageInfo[headIdx].nextIdx; //head change
+
+
+
+      int tail = p->headOfQueueIdx;
+
+      if(tail == INVALID_QUEUE_IDX){    //queue empty
+          p->headOfQueueIdx = headIdx;
+      }
+      else{
+        while(p->physPageInfo[tail].nextIdx != INVALID_QUEUE_IDX){
+            tail = p->physPageInfo[tail].nextIdx;
+        }
+        p->physPageInfo[tail].nextIdx = headIdx;    //adding to tail
+
+      }
+        p->physPageInfo[headIdx].va = (char*)a;
+        p->physPageInfo[headIdx].dataPresent = 1;
+        p->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
 
 
 
@@ -298,6 +315,7 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
       ///updating pgdir
       kfree((char*)PTE_ADDR(P2V(*walkpgdir(p->pgdir, headVa, 0))));
 
+      cprintf("headVa = %d\n", headVa);
       pte_t *pteTemp = walkpgdir(p->pgdir, headVa, 0);
       cprintf("prev pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
       *pteTemp = (*pteTemp|PTE_PG)&(~PTE_P);
