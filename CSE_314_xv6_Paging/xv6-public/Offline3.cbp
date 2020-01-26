@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Offline3" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/Offline3" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/Offline3" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+		</Compiler>
+		<Unit filename="BUGS" />
+		<Unit filename="LICENSE" />
+		<Unit filename="Makefile" />
+		<Unit filename="Notes" />
+		<Unit filename="Offline3.layout" />
+		<Unit filename="README" />
+		<Unit filename="TRICKS" />
+		<Unit filename="asm.h" />
+		<Unit filename="bio.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="bootasm.S" />
+		<Unit filename="bootmain.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="buf.h" />
+		<Unit filename="cat.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="console.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="cuth" />
+		<Unit filename="date.h" />
+		<Unit filename="defs.h" />
+		<Unit filename="dot-bochsrc" />
+		<Unit filename="echo.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="elf.h" />
+		<Unit filename="entry.S" />
+		<Unit filename="entryother.S" />
+		<Unit filename="exec.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fcntl.h" />
+		<Unit filename="file.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="file.h" />
+		<Unit filename="forktest.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="fs.h" />
+		<Unit filename="gdbutil" />
+		<Unit filename="grep.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ide.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="init.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="initcode.S" />
+		<Unit filename="ioapic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="kalloc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="kbd.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="kbd.h" />
+		<Unit filename="kernel.ld" />
+		<Unit filename="kill.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="lapic.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ln.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="log.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ls.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="main.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="memide.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="memlayout.h" />
+		<Unit filename="mkdir.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mkfs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mmu.h" />
+		<Unit filename="mp.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mp.h" />
+		<Unit filename="paging.patch" />
+		<Unit filename="param.h" />
+		<Unit filename="picirq.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pipe.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="pr.pl" />
+		<Unit filename="printf.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="printpcs" />
+		<Unit filename="proc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="proc.h" />
+		<Unit filename="rm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="runoff" />
+		<Unit filename="runoff.list" />
+		<Unit filename="runoff.spec" />
+		<Unit filename="runoff1" />
+		<Unit filename="sh.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="show1" />
+		<Unit filename="sign.pl" />
+		<Unit filename="sleep1.p" />
+		<Unit filename="sleeplock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sleeplock.h" />
+		<Unit filename="spinlock.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="spinlock.h" />
+		<Unit filename="spinp" />
+		<Unit filename="stat.h" />
+		<Unit filename="stressfs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="string.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="swtch.S" />
+		<Unit filename="syscall.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="syscall.h" />
+		<Unit filename="sysfile.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="sysproc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="test.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="toc.ftr" />
+		<Unit filename="toc.hdr" />
+		<Unit filename="trap.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="trapasm.S" />
+		<Unit filename="traps.h" />
+		<Unit filename="types.h" />
+		<Unit filename="uart.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="ulib.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="umalloc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="user.h" />
+		<Unit filename="usertests.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="usys.S" />
+		<Unit filename="vectors.pl" />
+		<Unit filename="vm.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="wc.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="x86.h" />
+		<Unit filename="zombie.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

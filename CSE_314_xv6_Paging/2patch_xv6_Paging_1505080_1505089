@@ -1,0 +1,2291 @@
+commit b35fe5213ba9cf3ea413c776123c8468f965901f
+Author: ishtiaqniloy <1505080.aai@ugrad.cse.buet.ac.bd>
+Date:   Sun Feb 10 17:42:24 2019 +0600
+
+    SUBMITTED BY 1505080 & 1505089
+
+diff --git a/BUGS b/BUGS
+old mode 100644
+new mode 100755
+diff --git a/LICENSE b/LICENSE
+old mode 100644
+new mode 100755
+diff --git a/Makefile b/Makefile
+old mode 100644
+new mode 100755
+index 09d790c..51e021f
+--- a/Makefile
++++ b/Makefile
+@@ -32,7 +32,7 @@ OBJS = \
+ # TOOLPREFIX = i386-jos-elf
+ 
+ # Using native tools (e.g., on X86 Linux)
+-#TOOLPREFIX = 
++#TOOLPREFIX =
+ 
+ # Try to infer the correct TOOLPREFIX if not set
+ ifndef TOOLPREFIX
+@@ -180,6 +180,7 @@ UPROGS=\
+ 	_stressfs\
+ 	_usertests\
+ 	_wc\
++	_test\
+ 	_zombie\
+ 
+ fs.img: mkfs README $(UPROGS)
+@@ -187,7 +188,7 @@ fs.img: mkfs README $(UPROGS)
+ 
+ -include *.d
+ 
+-clean: 
++clean:
+ 	rm -f *.tex *.dvi *.idx *.aux *.log *.ind *.ilg \
+ 	*.o *.d *.asm *.sym vectors.S bootblock entryother \
+ 	initcode initcode.out kernel xv6.img fs.img kernelmemfs \
+diff --git a/Notes b/Notes
+old mode 100644
+new mode 100755
+diff --git a/Offline3.cbp b/Offline3.cbp
+new file mode 100755
+index 0000000..01ed752
+--- /dev/null
++++ b/Offline3.cbp
+@@ -0,0 +1,234 @@
++<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
++<CodeBlocks_project_file>
++	<FileVersion major="1" minor="6" />
++	<Project>
++		<Option title="Offline3" />
++		<Option pch_mode="2" />
++		<Option compiler="gcc" />
++		<Build>
++			<Target title="Debug">
++				<Option output="bin/Debug/Offline3" prefix_auto="1" extension_auto="1" />
++				<Option object_output="obj/Debug/" />
++				<Option type="1" />
++				<Option compiler="gcc" />
++				<Compiler>
++					<Add option="-g" />
++				</Compiler>
++			</Target>
++			<Target title="Release">
++				<Option output="bin/Release/Offline3" prefix_auto="1" extension_auto="1" />
++				<Option object_output="obj/Release/" />
++				<Option type="1" />
++				<Option compiler="gcc" />
++				<Compiler>
++					<Add option="-O2" />
++				</Compiler>
++				<Linker>
++					<Add option="-s" />
++				</Linker>
++			</Target>
++		</Build>
++		<Compiler>
++			<Add option="-Wall" />
++		</Compiler>
++		<Unit filename="BUGS" />
++		<Unit filename="LICENSE" />
++		<Unit filename="Makefile" />
++		<Unit filename="Notes" />
++		<Unit filename="Offline3.layout" />
++		<Unit filename="README" />
++		<Unit filename="TRICKS" />
++		<Unit filename="asm.h" />
++		<Unit filename="bio.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="bootasm.S" />
++		<Unit filename="bootmain.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="buf.h" />
++		<Unit filename="cat.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="console.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="cuth" />
++		<Unit filename="date.h" />
++		<Unit filename="defs.h" />
++		<Unit filename="dot-bochsrc" />
++		<Unit filename="echo.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="elf.h" />
++		<Unit filename="entry.S" />
++		<Unit filename="entryother.S" />
++		<Unit filename="exec.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="fcntl.h" />
++		<Unit filename="file.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="file.h" />
++		<Unit filename="forktest.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="fs.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="fs.h" />
++		<Unit filename="gdbutil" />
++		<Unit filename="grep.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="ide.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="init.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="initcode.S" />
++		<Unit filename="ioapic.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="kalloc.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="kbd.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="kbd.h" />
++		<Unit filename="kernel.ld" />
++		<Unit filename="kill.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="lapic.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="ln.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="log.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="ls.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="main.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="memide.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="memlayout.h" />
++		<Unit filename="mkdir.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="mkfs.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="mmu.h" />
++		<Unit filename="mp.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="mp.h" />
++		<Unit filename="paging.patch" />
++		<Unit filename="param.h" />
++		<Unit filename="picirq.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="pipe.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="pr.pl" />
++		<Unit filename="printf.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="printpcs" />
++		<Unit filename="proc.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="proc.h" />
++		<Unit filename="rm.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="runoff" />
++		<Unit filename="runoff.list" />
++		<Unit filename="runoff.spec" />
++		<Unit filename="runoff1" />
++		<Unit filename="sh.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="show1" />
++		<Unit filename="sign.pl" />
++		<Unit filename="sleep1.p" />
++		<Unit filename="sleeplock.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="sleeplock.h" />
++		<Unit filename="spinlock.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="spinlock.h" />
++		<Unit filename="spinp" />
++		<Unit filename="stat.h" />
++		<Unit filename="stressfs.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="string.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="swtch.S" />
++		<Unit filename="syscall.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="syscall.h" />
++		<Unit filename="sysfile.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="sysproc.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="test.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="toc.ftr" />
++		<Unit filename="toc.hdr" />
++		<Unit filename="trap.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="trapasm.S" />
++		<Unit filename="traps.h" />
++		<Unit filename="types.h" />
++		<Unit filename="uart.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="ulib.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="umalloc.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="user.h" />
++		<Unit filename="usertests.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="usys.S" />
++		<Unit filename="vectors.pl" />
++		<Unit filename="vm.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="wc.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Unit filename="x86.h" />
++		<Unit filename="zombie.c">
++			<Option compilerVar="CC" />
++		</Unit>
++		<Extensions>
++			<code_completion />
++			<debugger />
++		</Extensions>
++	</Project>
++</CodeBlocks_project_file>
+diff --git a/Offline3.layout b/Offline3.layout
+new file mode 100755
+index 0000000..6c47702
+--- /dev/null
++++ b/Offline3.layout
+@@ -0,0 +1,135 @@
++<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
++<CodeBlocks_layout_file>
++	<FileVersion major="1" minor="0" />
++	<ActiveTarget name="Debug" />
++	<File name="usys.S" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="477" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="file.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="515" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="x86.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="2702" topLine="143" />
++		</Cursor>
++	</File>
++	<File name="trap.c" open="1" top="0" tabpos="7" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="2557" topLine="101" />
++		</Cursor>
++	</File>
++	<File name="types.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="103" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="syscall.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="508" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="test.c" open="1" top="0" tabpos="8" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="748" topLine="10" />
++		</Cursor>
++	</File>
++	<File name="sysfile.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="3897" topLine="341" />
++		</Cursor>
++	</File>
++	<File name="string.c" open="1" top="0" tabpos="10" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="820" topLine="41" />
++		</Cursor>
++	</File>
++	<File name="proc.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="2791" topLine="253" />
++		</Cursor>
++	</File>
++	<File name="syscall.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="3197" topLine="99" />
++		</Cursor>
++	</File>
++	<File name="vm.c" open="1" top="1" tabpos="6" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="14700" topLine="526" />
++		</Cursor>
++	</File>
++	<File name="exec.c" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="3018" topLine="29" />
++		</Cursor>
++	</File>
++	<File name="log.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="3099" topLine="105" />
++		</Cursor>
++	</File>
++	<File name="proc.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="2744" topLine="43" />
++		</Cursor>
++	</File>
++	<File name="usertests.c" open="1" top="0" tabpos="11" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="34332" topLine="1763" />
++		</Cursor>
++	</File>
++	<File name="fs.c" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="17432" topLine="764" />
++		</Cursor>
++	</File>
++	<File name="mmu.h" open="1" top="0" tabpos="9" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="2981" topLine="59" />
++		</Cursor>
++	</File>
++	<File name="Makefile" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="5836" topLine="166" />
++		</Cursor>
++	</File>
++	<File name="user.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="563" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="sysproc.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="1345" topLine="102" />
++		</Cursor>
++	</File>
++	<File name="ulib.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="208" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="kalloc.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="1984" topLine="0" />
++		</Cursor>
++	</File>
++	<File name="defs.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="4572" topLine="135" />
++		</Cursor>
++	</File>
++	<File name="main.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="1167" topLine="9" />
++		</Cursor>
++	</File>
++	<File name="file.c" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
++		<Cursor>
++			<Cursor1 position="1492" topLine="82" />
++		</Cursor>
++	</File>
++</CodeBlocks_layout_file>
+diff --git a/README b/README
+old mode 100644
+new mode 100755
+diff --git a/TRICKS b/TRICKS
+old mode 100644
+new mode 100755
+diff --git a/asm.h b/asm.h
+old mode 100644
+new mode 100755
+diff --git a/bio.c b/bio.c
+old mode 100644
+new mode 100755
+diff --git a/bootasm.S b/bootasm.S
+old mode 100644
+new mode 100755
+diff --git a/bootmain.c b/bootmain.c
+old mode 100644
+new mode 100755
+diff --git a/buf.h b/buf.h
+old mode 100644
+new mode 100755
+diff --git a/cat.c b/cat.c
+old mode 100644
+new mode 100755
+diff --git a/console.c b/console.c
+old mode 100644
+new mode 100755
+diff --git a/date.h b/date.h
+old mode 100644
+new mode 100755
+diff --git a/defs.h b/defs.h
+old mode 100644
+new mode 100755
+index 82fb982..f33f2cb
+--- a/defs.h
++++ b/defs.h
+@@ -52,6 +52,11 @@ struct inode*   nameiparent(char*, char*);
+ int             readi(struct inode*, char*, uint, uint);
+ void            stati(struct inode*, struct stat*);
+ int             writei(struct inode*, char*, uint, uint);
++int             createSwapFile(struct proc* p);
++int             readFromSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size);
++int             writeToSwapFile(struct proc* p, char* buffer, uint placeOnFile, uint size);
++int             removeSwapFile(struct proc* p);
++
+ 
+ // ide.c
+ void            ideinit(void);
+@@ -124,6 +129,11 @@ void            yield(void);
+ // swtch.S
+ void            swtch(struct context**, struct context*);
+ 
++// sysfile
++struct inode*   create(char *path, short type, short major, short minor);
++int             isdirempty(struct inode *dp);
++
++
+ // spinlock.c
+ void            acquire(struct spinlock*);
+ void            getcallerpcs(void*, uint*);
+diff --git a/desktop.ini b/desktop.ini
+new file mode 100755
+index 0000000..ff62497
+--- /dev/null
++++ b/desktop.ini
+@@ -0,0 +1,5 @@
++[.ShellClassInfo]
++InfoTip=This folder is shared online.
++IconFile=C:\Program Files\Google\Drive\googledrivesync.exe
++IconIndex=16
++    
+\ No newline at end of file
+diff --git a/echo.c b/echo.c
+old mode 100644
+new mode 100755
+diff --git a/elf.h b/elf.h
+old mode 100644
+new mode 100755
+diff --git a/entry.S b/entry.S
+old mode 100644
+new mode 100755
+diff --git a/entryother.S b/entryother.S
+old mode 100644
+new mode 100755
+diff --git a/exec.c b/exec.c
+old mode 100644
+new mode 100755
+index b40134f..3078491
+--- a/exec.c
++++ b/exec.c
+@@ -19,6 +19,8 @@ exec(char *path, char **argv)
+   pde_t *pgdir, *oldpgdir;
+   struct proc *curproc = myproc();
+ 
++
++
+   begin_op();
+ 
+   if((ip = namei(path)) == 0){
+@@ -29,6 +31,26 @@ exec(char *path, char **argv)
+   ilock(ip);
+   pgdir = 0;
+ 
++
++  ///initialize again for exec
++
++/*    curproc->swapFile=0;
++    curproc->takenPhysPage = 0;
++    curproc->takenSwapPage = 0;
++
++    curproc->headOfQueueIdx = INVALID_QUEUE_IDX;
++
++    for (int i=0; i<MAX_PSYC_PAGES; i++){
++      curproc->physPageInfo[i].va = INVALID_ADDRESS;
++      curproc->physPageInfo[i].dataPresent = 0;
++      curproc->physPageInfo[i].nextIdx = INVALID_QUEUE_IDX;
++
++      curproc->swapPageInfo[i].va = INVALID_ADDRESS;
++      curproc->swapPageInfo[i].dataPresent = 0;
++
++    }
++*/
++
+   // Check ELF header
+   if(readi(ip, (char*)&elf, 0, sizeof(elf)) != sizeof(elf))
+     goto bad;
+@@ -38,6 +60,11 @@ exec(char *path, char **argv)
+   if((pgdir = setupkvm()) == 0)
+     goto bad;
+ 
++
++
++
++
++
+   // Load program into memory.
+   sz = 0;
+   for(i=0, off=elf.phoff; i<elf.phnum; i++, off+=sizeof(ph)){
+@@ -99,6 +126,12 @@ exec(char *path, char **argv)
+   curproc->sz = sz;
+   curproc->tf->eip = elf.entry;  // main
+   curproc->tf->esp = sp;
++
++
++
++  removeSwapFile(curproc);
++  createSwapFile(curproc);
++
+   switchuvm(curproc);
+   freevm(oldpgdir);
+   return 0;
+diff --git a/fcntl.h b/fcntl.h
+old mode 100644
+new mode 100755
+diff --git a/file.c b/file.c
+old mode 100644
+new mode 100755
+diff --git a/file.h b/file.h
+old mode 100644
+new mode 100755
+diff --git a/forktest.c b/forktest.c
+old mode 100644
+new mode 100755
+diff --git a/fs.c b/fs.c
+old mode 100644
+new mode 100755
+index feb59fe..c85963a
+--- a/fs.c
++++ b/fs.c
+@@ -25,7 +25,7 @@
+ static void itrunc(struct inode*);
+ // there should be one superblock per disk device, but we run with
+ // only one device
+-struct superblock sb; 
++struct superblock sb;
+ 
+ // Read the super block.
+ void
+@@ -173,7 +173,7 @@ void
+ iinit(int dev)
+ {
+   int i = 0;
+-  
++
+   initlock(&icache.lock, "icache");
+   for(i = 0; i < NINODE; i++) {
+     initsleeplock(&icache.inode[i].lock, "inode");
+@@ -669,3 +669,151 @@ nameiparent(char *path, char *name)
+ {
+   return namex(path, 1, name);
+ }
++
++// NEW FOR PAGING
++
++#include "fcntl.h"
++#define DIGITS 14
++
++char* itoa(int i, char b[]){
++    char const digit[] = "0123456789";
++    char* p = b;
++    if(i<0){
++        *p++ = '-';
++        i *= -1;
++    }
++    int shifter = i;
++    do{ //Move to where representation ends
++        ++p;
++        shifter = shifter/10;
++    }while(shifter);
++    *p = '\0';
++    do{ //Move back, inserting digits as u go
++        *--p = digit[i%10];
++        i = i/10;
++    }while(i);
++    return b;
++}
++
++//remove swap file of proc p;
++int
++removeSwapFile(struct proc* p)
++{
++
++    cprintf("Removing swap file for pid:%d, name:%s\n", p->pid, p->name);
++	//path of proccess
++	char path[DIGITS];
++	memmove(path,"/.swap", 6);
++	itoa(p->pid, path+ 6);
++
++	struct inode *ip, *dp;
++	struct dirent de;
++	char name[DIRSIZ];
++	uint off;
++
++	if(0 == p->swapFile)
++	{
++		return -1;
++	}
++	fileclose(p->swapFile);
++
++	begin_op();
++	if((dp = nameiparent(path, name)) == 0)
++	{
++		end_op();
++		return -1;
++	}
++
++	ilock(dp);
++
++	  // Cannot unlink "." or "..".
++	if(namecmp(name, ".") == 0 || namecmp(name, "..") == 0)
++	   goto bad;
++
++	if((ip = dirlookup(dp, name, &off)) == 0)
++		goto bad;
++	ilock(ip);
++
++	if(ip->nlink < 1)
++		panic("unlink: nlink < 1");
++	if(ip->type == T_DIR && !isdirempty(ip)){
++		iunlockput(ip);
++		goto bad;
++	}
++
++	memset(&de, 0, sizeof(de));
++	if(writei(dp, (char*)&de, off, sizeof(de)) != sizeof(de))
++		panic("unlink: writei");
++	if(ip->type == T_DIR){
++		dp->nlink--;
++		iupdate(dp);
++	}
++	iunlockput(dp);
++
++	ip->nlink--;
++	iupdate(ip);
++	iunlockput(ip);
++
++	end_op();
++
++	return 0;
++
++	bad:
++		iunlockput(dp);
++		end_op();
++		return -1;
++
++}
++
++
++//return 0 on success
++int
++createSwapFile(struct proc* p)
++{
++  cprintf("Creating swap file for pid:%d, name:%s\n", p->pid, p->name);
++	char path[DIGITS];
++	memmove(path,"/.swap", 6);
++	itoa(p->pid, path+ 6);
++
++    begin_op();
++    struct inode * in = create(path, T_FILE, 0, 0);
++	iunlock(in);
++
++	p->swapFile = filealloc();
++	if (p->swapFile == 0)
++		panic("no slot for files on /store");
++
++	p->swapFile->ip = in;
++	p->swapFile->type = FD_INODE;
++	p->swapFile->off = 0;
++	p->swapFile->readable = O_WRONLY;
++	p->swapFile->writable = O_RDWR;
++    end_op();
++
++    return 0;
++}
++
++//return as sys_write (-1 when error)
++int
++writeToSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size)
++{
++
++    cprintf("Writing %d bytes to swap file for pid:%d, name:%s, at offset = %d\n", size, p->pid, p->name, placeOnFile);
++    //cprintf("Buffer at %d = %s\n",buffer, buffer);
++
++	p->swapFile->off = placeOnFile;
++
++	return filewrite(p->swapFile, buffer, size);
++
++}
++
++//return as sys_read (-1 when error)
++int
++readFromSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size)
++{
++    cprintf("Reading %d bytes from swap file for pid:%d, name:%s, at offset = %d\n", size, p->pid, p->name, placeOnFile);
++	p->swapFile->off = placeOnFile;
++
++	return fileread(p->swapFile, buffer,  size);
++}
++
+diff --git a/fs.h b/fs.h
+old mode 100644
+new mode 100755
+diff --git a/gdbutil b/gdbutil
+old mode 100644
+new mode 100755
+diff --git a/grep.c b/grep.c
+old mode 100644
+new mode 100755
+diff --git a/ide.c b/ide.c
+old mode 100644
+new mode 100755
+diff --git a/init.c b/init.c
+old mode 100644
+new mode 100755
+diff --git a/initcode.S b/initcode.S
+old mode 100644
+new mode 100755
+diff --git a/ioapic.c b/ioapic.c
+old mode 100644
+new mode 100755
+diff --git a/kalloc.c b/kalloc.c
+old mode 100644
+new mode 100755
+diff --git a/kbd.c b/kbd.c
+old mode 100644
+new mode 100755
+diff --git a/kbd.h b/kbd.h
+old mode 100644
+new mode 100755
+diff --git a/kernel.ld b/kernel.ld
+old mode 100644
+new mode 100755
+diff --git a/kill.c b/kill.c
+old mode 100644
+new mode 100755
+diff --git a/lapic.c b/lapic.c
+old mode 100644
+new mode 100755
+diff --git a/ln.c b/ln.c
+old mode 100644
+new mode 100755
+diff --git a/log.c b/log.c
+old mode 100644
+new mode 100755
+diff --git a/ls.c b/ls.c
+old mode 100644
+new mode 100755
+diff --git a/main.c b/main.c
+old mode 100644
+new mode 100755
+diff --git a/memide.c b/memide.c
+old mode 100644
+new mode 100755
+diff --git a/memlayout.h b/memlayout.h
+old mode 100644
+new mode 100755
+diff --git a/mkdir.c b/mkdir.c
+old mode 100644
+new mode 100755
+diff --git a/mkfs.c b/mkfs.c
+old mode 100644
+new mode 100755
+diff --git a/mmu.h b/mmu.h
+old mode 100644
+new mode 100755
+index a82d8e2..aec4420
+--- a/mmu.h
++++ b/mmu.h
+@@ -95,6 +95,8 @@ struct segdesc {
+ #define PTE_W           0x002   // Writeable
+ #define PTE_U           0x004   // User
+ #define PTE_PS          0x080   // Page Size
++#define PTE_A           0x020   // Accessed
++#define PTE_PG          0x200   // Paged out to secondary storage
+ 
+ // Address in page table or page directory entry
+ #define PTE_ADDR(pte)   ((uint)(pte) & ~0xFFF)
+diff --git a/mp.c b/mp.c
+old mode 100644
+new mode 100755
+diff --git a/mp.h b/mp.h
+old mode 100644
+new mode 100755
+diff --git a/paging.patch b/paging.patch
+new file mode 100755
+index 0000000..54ef2b9
+--- /dev/null
++++ b/paging.patch
+@@ -0,0 +1,225 @@
++diff --git a/defs.h b/defs.h
++index 82fb982..f33f2cb 100644
++--- a/defs.h
+++++ b/defs.h
++@@ -52,6 +52,11 @@ struct inode*   nameiparent(char*, char*);
++ int             readi(struct inode*, char*, uint, uint);
++ void            stati(struct inode*, struct stat*);
++ int             writei(struct inode*, char*, uint, uint);
+++int             createSwapFile(struct proc* p);
+++int             readFromSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size);
+++int             writeToSwapFile(struct proc* p, char* buffer, uint placeOnFile, uint size);
+++int             removeSwapFile(struct proc* p);
+++
++ 
++ // ide.c
++ void            ideinit(void);
++@@ -124,6 +129,11 @@ void            yield(void);
++ // swtch.S
++ void            swtch(struct context**, struct context*);
++ 
+++// sysfile
+++struct inode*   create(char *path, short type, short major, short minor);
+++int             isdirempty(struct inode *dp);
+++
+++
++ // spinlock.c
++ void            acquire(struct spinlock*);
++ void            getcallerpcs(void*, uint*);
++diff --git a/fs.c b/fs.c
++index feb59fe..f7c92cf 100644
++--- a/fs.c
+++++ b/fs.c
++@@ -669,3 +669,144 @@ nameiparent(char *path, char *name)
++ {
++   return namex(path, 1, name);
++ }
+++
+++// NEW FOR PAGING
+++
+++#include "fcntl.h"
+++#define DIGITS 14
+++
+++char* itoa(int i, char b[]){
+++    char const digit[] = "0123456789";
+++    char* p = b;
+++    if(i<0){
+++        *p++ = '-';
+++        i *= -1;
+++    }
+++    int shifter = i;
+++    do{ //Move to where representation ends
+++        ++p;
+++        shifter = shifter/10;
+++    }while(shifter);
+++    *p = '\0';
+++    do{ //Move back, inserting digits as u go
+++        *--p = digit[i%10];
+++        i = i/10;
+++    }while(i);
+++    return b;
+++}
+++
+++//remove swap file of proc p;
+++int
+++removeSwapFile(struct proc* p)
+++{
+++	//path of proccess
+++	char path[DIGITS];
+++	memmove(path,"/.swap", 6);
+++	itoa(p->pid, path+ 6);
+++
+++	struct inode *ip, *dp;
+++	struct dirent de;
+++	char name[DIRSIZ];
+++	uint off;
+++
+++	if(0 == p->swapFile)
+++	{
+++		return -1;
+++	}
+++	fileclose(p->swapFile);
+++
+++	begin_op();
+++	if((dp = nameiparent(path, name)) == 0)
+++	{
+++		end_op();
+++		return -1;
+++	}
+++
+++	ilock(dp);
+++
+++	  // Cannot unlink "." or "..".
+++	if(namecmp(name, ".") == 0 || namecmp(name, "..") == 0)
+++	   goto bad;
+++
+++	if((ip = dirlookup(dp, name, &off)) == 0)
+++		goto bad;
+++	ilock(ip);
+++
+++	if(ip->nlink < 1)
+++		panic("unlink: nlink < 1");
+++	if(ip->type == T_DIR && !isdirempty(ip)){
+++		iunlockput(ip);
+++		goto bad;
+++	}
+++
+++	memset(&de, 0, sizeof(de));
+++	if(writei(dp, (char*)&de, off, sizeof(de)) != sizeof(de))
+++		panic("unlink: writei");
+++	if(ip->type == T_DIR){
+++		dp->nlink--;
+++		iupdate(dp);
+++	}
+++	iunlockput(dp);
+++
+++	ip->nlink--;
+++	iupdate(ip);
+++	iunlockput(ip);
+++
+++	end_op();
+++
+++	return 0;
+++
+++	bad:
+++		iunlockput(dp);
+++		end_op();
+++		return -1;
+++
+++}
+++
+++
+++//return 0 on success
+++int
+++createSwapFile(struct proc* p)
+++{
+++
+++	char path[DIGITS];
+++	memmove(path,"/.swap", 6);
+++	itoa(p->pid, path+ 6);
+++
+++    begin_op();
+++    struct inode * in = create(path, T_FILE, 0, 0);
+++	iunlock(in);
+++
+++	p->swapFile = filealloc();
+++	if (p->swapFile == 0)
+++		panic("no slot for files on /store");
+++
+++	p->swapFile->ip = in;
+++	p->swapFile->type = FD_INODE;
+++	p->swapFile->off = 0;
+++	p->swapFile->readable = O_WRONLY;
+++	p->swapFile->writable = O_RDWR;
+++    end_op();
+++
+++    return 0;
+++}
+++
+++//return as sys_write (-1 when error)
+++int
+++writeToSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size)
+++{
+++	p->swapFile->off = placeOnFile;
+++
+++	return filewrite(p->swapFile, buffer, size);
+++
+++}
+++
+++//return as sys_read (-1 when error)
+++int
+++readFromSwapFile(struct proc * p, char* buffer, uint placeOnFile, uint size)
+++{
+++	p->swapFile->off = placeOnFile;
+++
+++	return fileread(p->swapFile, buffer,  size);
+++}
+++
++diff --git a/mmu.h b/mmu.h
++index a82d8e2..aec4420 100644
++--- a/mmu.h
+++++ b/mmu.h
++@@ -95,6 +95,8 @@ struct segdesc {
++ #define PTE_W           0x002   // Writeable
++ #define PTE_U           0x004   // User
++ #define PTE_PS          0x080   // Page Size
+++#define PTE_A           0x020   // Accessed
+++#define PTE_PG          0x200   // Paged out to secondary storage
++ 
++ // Address in page table or page directory entry
++ #define PTE_ADDR(pte)   ((uint)(pte) & ~0xFFF)
++diff --git a/proc.h b/proc.h
++index 1647114..9f65fae 100644
++--- a/proc.h
+++++ b/proc.h
++@@ -49,6 +49,8 @@ struct proc {
++   struct file *ofile[NOFILE];  // Open files
++   struct inode *cwd;           // Current directory
++   char name[16];               // Process name (debugging)
+++  //Swap file. must initiate with create swap file
+++  struct file *swapFile;			//page file
++ };
++ 
++ // Process memory is laid out contiguously, low addresses first:
++diff --git a/sysfile.c b/sysfile.c
++index 87e508b..22d3588 100644
++--- a/sysfile.c
+++++ b/sysfile.c
++@@ -165,7 +165,7 @@ bad:
++ }
++ 
++ // Is the directory dp empty except for "." and ".." ?
++-static int
+++int
++ isdirempty(struct inode *dp)
++ {
++   int off;
++@@ -238,7 +238,7 @@ bad:
++   return -1;
++ }
++ 
++-static struct inode*
+++struct inode*
++ create(char *path, short type, short major, short minor)
++ {
++   uint off;
+diff --git a/param.h b/param.h
+old mode 100644
+new mode 100755
+diff --git a/picirq.c b/picirq.c
+old mode 100644
+new mode 100755
+diff --git a/pipe.c b/pipe.c
+old mode 100644
+new mode 100755
+diff --git a/printf.c b/printf.c
+old mode 100644
+new mode 100755
+diff --git a/proc.c b/proc.c
+old mode 100644
+new mode 100755
+index 806b1b1..7a6d3fd
+--- a/proc.c
++++ b/proc.c
+@@ -24,6 +24,107 @@ void
+ pinit(void)
+ {
+   initlock(&ptable.lock, "ptable");
++
++  for(int j=0; j<NPROC; j++){
++
++    ptable.proc[j].swapFile=0;
++    ptable.proc[j].takenPhysPage = 0;
++    ptable.proc[j].takenSwapPage = 0;
++
++    ptable.proc[j].headOfQueueIdx = INVALID_QUEUE_IDX;
++
++    for (int i=0; i<MAX_PSYC_PAGES; i++){
++      ptable.proc[j].physPageInfo[i].va = INVALID_ADDRESS;
++      ptable.proc[j].physPageInfo[i].dataPresent = 0;
++      ptable.proc[j].physPageInfo[i].nextIdx = INVALID_QUEUE_IDX;
++
++      ptable.proc[j].swapPageInfo[i].va = INVALID_ADDRESS;
++      ptable.proc[j].swapPageInfo[i].dataPresent = 0;
++
++
++    }
++
++  }
++
++
++}
++
++void
++processInit(struct proc *p){  //unused
++
++  if(p->pid==1){
++    return;
++  }
++
++  cprintf("Initializing new variables for pid:%d, name:%s\n", p->pid, p->name);
++
++    p->swapFile=0;
++    p->takenPhysPage = 0;
++    p->takenSwapPage = 0;
++
++    p->headOfQueueIdx = INVALID_QUEUE_IDX;
++
++    for (int i=0; i<MAX_PSYC_PAGES; i++){
++      p->physPageInfo[i].va = INVALID_ADDRESS;
++      p->physPageInfo[i].dataPresent = 0;
++      p->physPageInfo[i].nextIdx = INVALID_QUEUE_IDX;
++
++      p->swapPageInfo[i].va = INVALID_ADDRESS;
++      p->swapPageInfo[i].dataPresent = 0;
++
++    }
++
++
++  //cprintf("In processInit(): Creating swap file for pid = %d\n", myproc()->pid);
++  createSwapFile(p);
++
++  /*char dummy[PGSIZE];
++  dummy[0] = 0;
++  for(int i=0; i<MAX_PSYC_PAGES; i++){
++    writeToSwapFile(p, dummy, i*PGSIZE, PGSIZE); //takes too much time
++  }*/
++
++
++
++}
++
++void copyProcessSwapData(struct proc *np, struct proc *p){
++
++  if(p->swapFile==0 || strncmp(p->name, "init", 4)==0 ){  //|| strncmp(p->name, "sh", 2)==0
++    return;
++  }
++
++  np->takenPhysPage = p->takenPhysPage;
++  np->takenSwapPage = p->takenSwapPage;
++
++  np->headOfQueueIdx = p->headOfQueueIdx;
++
++  for (int i=0; i<MAX_PSYC_PAGES; i++){
++    np->physPageInfo[i].va = p->physPageInfo[i].va;
++    np->physPageInfo[i].dataPresent = p->physPageInfo[i].dataPresent;
++    np->physPageInfo[i].nextIdx = p->physPageInfo[i].nextIdx;
++
++    np->swapPageInfo[i].va = p->swapPageInfo[i].va;
++    np->swapPageInfo[i].dataPresent = p->swapPageInfo[i].dataPresent;
++
++  }
++
++  createSwapFile(np); ///will be changed later
++
++
++  char buf[PGSIZE/2];
++
++  for(int i=0; i<MAX_PSYC_PAGES; i++){
++    if(p->swapPageInfo[i].dataPresent){
++        readFromSwapFile(p, buf, i*PGSIZE, PGSIZE/2);
++        writeToSwapFile(np, buf, i*PGSIZE, PGSIZE/2);
++
++        readFromSwapFile(p, buf, i*PGSIZE+PGSIZE/2, PGSIZE/2);
++        writeToSwapFile(np, buf, i*PGSIZE+PGSIZE/2, PGSIZE/2);
++
++    }
++  }
++
+ }
+ 
+ // Must be called with interrupts disabled
+@@ -38,10 +139,10 @@ struct cpu*
+ mycpu(void)
+ {
+   int apicid, i;
+-  
++
+   if(readeflags()&FL_IF)
+     panic("mycpu called with interrupts enabled\n");
+-  
++
+   apicid = lapicid();
+   // APIC IDs are not guaranteed to be contiguous. Maybe we should have
+   // a reverse map, or reserve a register to store &cpus[i].
+@@ -112,6 +213,29 @@ found:
+   memset(p->context, 0, sizeof *p->context);
+   p->context->eip = (uint)forkret;
+ 
++
++  //processInit(p); //initializing new variables //jhamela
++
++    p->swapFile=0;
++    p->takenPhysPage = 0;
++    p->takenSwapPage = 0;
++
++    p->headOfQueueIdx = INVALID_QUEUE_IDX;
++
++    for (int i=0; i<MAX_PSYC_PAGES; i++){
++      p->physPageInfo[i].va = INVALID_ADDRESS;
++      p->physPageInfo[i].dataPresent = 0;
++      p->physPageInfo[i].nextIdx = INVALID_QUEUE_IDX;
++
++      p->swapPageInfo[i].va = INVALID_ADDRESS;
++      p->swapPageInfo[i].dataPresent = 0;
++
++    }
++
++  //createSwapFile(p);  //jhamela
++
++
++
+   return p;
+ }
+ 
+@@ -124,7 +248,7 @@ userinit(void)
+   extern char _binary_initcode_start[], _binary_initcode_size[];
+ 
+   p = allocproc();
+-  
++
+   initproc = p;
+   if((p->pgdir = setupkvm()) == 0)
+     panic("userinit: out of memory?");
+@@ -158,6 +282,7 @@ userinit(void)
+ int
+ growproc(int n)
+ {
++
+   uint sz;
+   struct proc *curproc = myproc();
+ 
+@@ -210,10 +335,14 @@ fork(void)
+ 
+   safestrcpy(np->name, curproc->name, sizeof(curproc->name));
+ 
++  copyProcessSwapData(np, curproc);
++
+   pid = np->pid;
+ 
+   acquire(&ptable.lock);
+ 
++  //processInit(np); //initializing new variables //jhamela
++
+   np->state = RUNNABLE;
+ 
+   release(&ptable.lock);
+@@ -247,6 +376,11 @@ exit(void)
+   end_op();
+   curproc->cwd = 0;
+ 
++  if(curproc->swapFile!=0){   //removing swap file if available
++    removeSwapFile(curproc);
++    curproc->swapFile=0;
++  }
++
+   acquire(&ptable.lock);
+ 
+   // Parent might be sleeping in wait().
+@@ -275,7 +409,7 @@ wait(void)
+   struct proc *p;
+   int havekids, pid;
+   struct proc *curproc = myproc();
+-  
++
+   acquire(&ptable.lock);
+   for(;;){
+     // Scan through table looking for exited children.
+@@ -325,7 +459,7 @@ scheduler(void)
+   struct proc *p;
+   struct cpu *c = mycpu();
+   c->proc = 0;
+-  
++
+   for(;;){
+     // Enable interrupts on this processor.
+     sti();
+@@ -418,7 +552,7 @@ void
+ sleep(void *chan, struct spinlock *lk)
+ {
+   struct proc *p = myproc();
+-  
++
+   if(p == 0)
+     panic("sleep");
+ 
+diff --git a/proc.h b/proc.h
+old mode 100644
+new mode 100755
+index 1647114..ae658e3
+--- a/proc.h
++++ b/proc.h
+@@ -1,3 +1,8 @@
++#define MAX_PSYC_PAGES 15
++#define MAX_TOTAL_PAGES 30
++#define INVALID_ADDRESS (char*)0xffffffff
++#define INVALID_QUEUE_IDX -1
++
+ // Per-CPU state
+ struct cpu {
+   uchar apicid;                // Local APIC ID
+@@ -34,6 +39,14 @@ struct context {
+ 
+ enum procstate { UNUSED, EMBRYO, SLEEPING, RUNNABLE, RUNNING, ZOMBIE };
+ 
++
++struct pageInfo{
++    char* va;                   //va of stored data
++    int dataPresent;            //if it is used then 1
++
++    int nextIdx;
++};
++
+ // Per-process state
+ struct proc {
+   uint sz;                     // Size of process memory (bytes)
+@@ -49,6 +62,22 @@ struct proc {
+   struct file *ofile[NOFILE];  // Open files
+   struct inode *cwd;           // Current directory
+   char name[16];               // Process name (debugging)
++
++  //Swap file. must initiate with create swap file
++  struct file *swapFile;		//page file
++
++  int takenPhysPage;         //number of pages in main memory
++  int takenSwapPage;         //number of pages in swap file
++
++  int headOfQueueIdx;    //FIFO queue, new page will be added to head, page will be swapped out from tail
++
++  struct pageInfo physPageInfo[MAX_PSYC_PAGES];       //preallocated queue as malloc is not available
++
++  struct pageInfo swapPageInfo[MAX_PSYC_PAGES];      //used to determine if va has been swapped out
++
++
++
++
+ };
+ 
+ // Process memory is laid out contiguously, low addresses first:
+diff --git a/rm.c b/rm.c
+old mode 100644
+new mode 100755
+diff --git a/runoff.list b/runoff.list
+old mode 100644
+new mode 100755
+diff --git a/runoff.spec b/runoff.spec
+old mode 100644
+new mode 100755
+diff --git a/sh.c b/sh.c
+old mode 100644
+new mode 100755
+diff --git a/sleep1.p b/sleep1.p
+old mode 100644
+new mode 100755
+diff --git a/sleeplock.c b/sleeplock.c
+old mode 100644
+new mode 100755
+diff --git a/sleeplock.h b/sleeplock.h
+old mode 100644
+new mode 100755
+diff --git a/spinlock.c b/spinlock.c
+old mode 100644
+new mode 100755
+diff --git a/spinlock.h b/spinlock.h
+old mode 100644
+new mode 100755
+diff --git a/stat.h b/stat.h
+old mode 100644
+new mode 100755
+diff --git a/stressfs.c b/stressfs.c
+old mode 100644
+new mode 100755
+diff --git a/string.c b/string.c
+old mode 100644
+new mode 100755
+diff --git a/swtch.S b/swtch.S
+old mode 100644
+new mode 100755
+diff --git a/syscall.c b/syscall.c
+old mode 100644
+new mode 100755
+index ee85261..c7b6d54
+--- a/syscall.c
++++ b/syscall.c
+@@ -60,7 +60,7 @@ argptr(int n, char **pp, int size)
+ {
+   int i;
+   struct proc *curproc = myproc();
+- 
++
+   if(argint(n, &i) < 0)
+     return -1;
+   if(size < 0 || (uint)i >= curproc->sz || (uint)i+size > curproc->sz)
+@@ -103,6 +103,7 @@ extern int sys_unlink(void);
+ extern int sys_wait(void);
+ extern int sys_write(void);
+ extern int sys_uptime(void);
++extern int sys_testCall(void);
+ 
+ static int (*syscalls[])(void) = {
+ [SYS_fork]    sys_fork,
+@@ -126,6 +127,7 @@ static int (*syscalls[])(void) = {
+ [SYS_link]    sys_link,
+ [SYS_mkdir]   sys_mkdir,
+ [SYS_close]   sys_close,
++[SYS_testCall] sys_testCall,
+ };
+ 
+ void
+diff --git a/syscall.h b/syscall.h
+old mode 100644
+new mode 100755
+index bc5f356..06a10b4
+--- a/syscall.h
++++ b/syscall.h
+@@ -20,3 +20,4 @@
+ #define SYS_link   19
+ #define SYS_mkdir  20
+ #define SYS_close  21
++#define SYS_testCall 22
+diff --git a/sysfile.c b/sysfile.c
+old mode 100644
+new mode 100755
+index 87e508b..22d3588
+--- a/sysfile.c
++++ b/sysfile.c
+@@ -165,7 +165,7 @@ bad:
+ }
+ 
+ // Is the directory dp empty except for "." and ".." ?
+-static int
++int
+ isdirempty(struct inode *dp)
+ {
+   int off;
+@@ -238,7 +238,7 @@ bad:
+   return -1;
+ }
+ 
+-static struct inode*
++struct inode*
+ create(char *path, short type, short major, short minor)
+ {
+   uint off;
+diff --git a/sysproc.c b/sysproc.c
+old mode 100644
+new mode 100755
+index 0686d29..cf5e9da
+--- a/sysproc.c
++++ b/sysproc.c
+@@ -89,3 +89,66 @@ sys_uptime(void)
+   release(&tickslock);
+   return xticks;
+ }
++
++///dummy system call to check
++
++/*static void
++bufferCopy(char *s, const char *t, int n){
++  for(int i=0; i<n && t[i]!=0; i++){
++    s[i] = t[i];
++  }
++}*/
++
++int
++sys_testCall(void)
++{
++    cprintf("In test system call\n");
++
++    //growproc(20000);
++
++    /*createSwapFile(myproc());
++
++    cprintf("sz = %d\n", myproc()->sz);
++
++
++    char writeBuffer[4096];
++    writeBuffer[0] = 0;
++    cprintf("%s\n", writeBuffer);
++
++
++    bufferCopy(writeBuffer, "Hello World", 4096);
++    writeToSwapFile(myproc(), writeBuffer, 0, 4096);
++
++
++    bufferCopy(writeBuffer, "Another string", 4096);
++    writeToSwapFile(myproc(), writeBuffer, 4096, 4096);
++
++
++    char readBuffer[4096];
++
++    readFromSwapFile(myproc(), readBuffer, 0, 4096);
++    cprintf("After read = %s\n", readBuffer);
++
++    readFromSwapFile(myproc(), readBuffer, 4096, 4096);
++    cprintf("After 2nd read = %s\n", readBuffer);
++
++
++
++    cprintf("sz = %d\n", myproc()->sz);
++
++
++*/
++
++
++
++    return 0;
++
++}
++
++
++
++
++
++
++
++
+diff --git a/test.c b/test.c
+new file mode 100755
+index 0000000..06281ce
+--- /dev/null
++++ b/test.c
+@@ -0,0 +1,50 @@
++#include "types.h"
++#include "user.h"
++
++int main(int argc, char *argv[])
++{
++//    int i = 1;
++
++
++  int returnValue;
++
++    sbrk(80000);
++
++    //printf(1, "%d\n", sbrk(20000));
++
++    /*char writeBuffer[3000];
++    writeBuffer[0] = 0;
++    printf(1, "%s\n", writeBuffer);
++*/
++
++    /*char writeBuffer2[3000];
++    writeBuffer2[0] = 0;
++    printf(1, "%s\n", writeBuffer2);
++*/
++
++    /*char writeBuffer3[3000];
++    writeBuffer3[0] = 0;
++    printf(1, "%s\n", writeBuffer3);
++    char writeBuffer4[3000];
++    writeBuffer4[0] = 0;
++    printf(1, "%s\n", writeBuffer4);
++    char writeBuffer5[3000];
++    writeBuffer5[0] = 0;
++    printf(1, "%s\n", writeBuffer5);
++*/
++
++	returnValue = testCall();
++
++	printf( 0, "Returned value after 1st sbrk = %d\n", returnValue);
++
++	sbrk(-75000);
++
++	returnValue = testCall();
++
++	printf( 0, "Returned value after 2nd sbrk = %d\n", returnValue);
++
++
++
++	exit();
++
++}
+diff --git a/toc.ftr b/toc.ftr
+old mode 100644
+new mode 100755
+diff --git a/toc.hdr b/toc.hdr
+old mode 100644
+new mode 100755
+diff --git a/trap.c b/trap.c
+old mode 100644
+new mode 100755
+index 41c66eb..4153678
+--- a/trap.c
++++ b/trap.c
+@@ -14,6 +14,29 @@ extern uint vectors[];  // in vectors.S: array of 256 entry pointers
+ struct spinlock tickslock;
+ uint ticks;
+ 
++static pte_t *
++walkpgdir(pde_t *pgdir, const void *va, int alloc)
++{
++  pde_t *pde;
++  pte_t *pgtab;
++
++  pde = &pgdir[PDX(va)];
++  if(*pde & PTE_P){
++    pgtab = (pte_t*)P2V(PTE_ADDR(*pde));
++  } else {
++    if(!alloc || (pgtab = (pte_t*)kalloc()) == 0)
++      return 0;
++    // Make sure all those PTE_P bits are zero.
++    memset(pgtab, 0, PGSIZE);
++    // The permissions here are overly generous, but they can
++    // be further restricted by the permissions in the page table
++    // entries, if necessary.
++    *pde = V2P(pgtab) | PTE_P | PTE_W | PTE_U;
++  }
++  return &pgtab[PTX(va)];
++}
++
++
+ void
+ tvinit(void)
+ {
+@@ -32,6 +55,12 @@ idtinit(void)
+   lidt(idt, sizeof(idt));
+ }
+ 
++void printQueue(){
++
++
++}
++
++
+ //PAGEBREAK: 41
+ void
+ trap(struct trapframe *tf)
+@@ -79,6 +108,193 @@ trap(struct trapframe *tf)
+     break;
+ 
+   //PAGEBREAK: 13
++
++  case T_PGFLT:
++    ///new case added to handle paged out memory fault
++
++    if(myproc()->pid==1){
++      break;
++    }
++
++    cprintf("\n\nT_PGFLT\n");
++
++    char* va = (char*) rcr2();
++
++    cprintf("rcr2 = %d\n", va);
++
++    va = (char*) PGROUNDDOWN((int)va);
++
++    cprintf("va = %d\n", va);
++
++    pte_t *pteTemp = walkpgdir(myproc()->pgdir, va, 0);
++
++    cprintf("pteTemp=%d\n", *pteTemp);
++
++    if(  (*pteTemp&PTE_P)==0 && (*pteTemp&(~PTE_PG))!=0 ){
++
++        ///swapped out, va needs to be loaded back into the memory
++
++        cprintf("T_PGFLT: va=%d, pid = %d, name=%s\n",va, myproc()->pid, myproc()->name);
++
++
++        ///getting from what offset to read
++        int swapIdx = INVALID_QUEUE_IDX;
++
++        for(int i=0; i<MAX_PSYC_PAGES; i++){
++          if(myproc()->swapPageInfo[i].va == va && myproc()->swapPageInfo[i].dataPresent == 1){
++            //cprintf("found swapIdx = %d\n", i );
++            swapIdx = i;
++            break;
++          }
++        }
++
++        if(swapIdx==INVALID_QUEUE_IDX){
++          panic("T_PGFLT: SWAP PAGE NOT FOUND");
++        }
++
++
++        char* swapVa = myproc()->swapPageInfo[swapIdx].va;
++
++
++        ///storing in dummy offset in swap file
++        int dummySwapIdx = MAX_PSYC_PAGES;
++
++        for(int i=0; i<MAX_PSYC_PAGES; i++){
++          if(myproc()->swapPageInfo[i].va == INVALID_ADDRESS && myproc()->swapPageInfo[i].dataPresent == 0){
++            dummySwapIdx = i;
++            break;
++          }
++        }
++
++        char buf[PGSIZE/4];
++
++        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE, PGSIZE/4);
++        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE, PGSIZE/4);
++
++        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
++        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
++
++        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
++        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
++
++        readFromSwapFile(myproc(), buf, swapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
++        writeToSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
++
++
++        ///updating queue for newly swapped out page
++
++
++        int headIdx = myproc()->headOfQueueIdx;
++        if(headIdx == INVALID_QUEUE_IDX){
++          panic("QUEUE ERROR");
++        }
++
++        char *headVa = myproc()->physPageInfo[headIdx].va;   //va of the page that need to be paged out
++
++        myproc()->physPageInfo[headIdx].va = INVALID_ADDRESS;
++        myproc()->physPageInfo[headIdx].dataPresent = 0;
++
++        myproc()->headOfQueueIdx = myproc()->physPageInfo[headIdx].nextIdx;
++        myproc()->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
++
++        //cprintf("headIdx = %d, new headIdx = %d\n", headIdx, myproc()->headOfQueueIdx);
++
++        ///writing content of head to swap file
++        writeToSwapFile(myproc(), headVa, swapIdx*PGSIZE, PGSIZE);
++
++        myproc()->swapPageInfo[swapIdx].dataPresent = 1;
++        myproc()->swapPageInfo[swapIdx].va = headVa;
++
++
++
++        ///updating pgdir
++        kfree((char*)PTE_ADDR(P2V(*walkpgdir(myproc()->pgdir, headVa, 0))));   //freeing headVa
++
++        //cprintf("headVa = %d\n", headVa);
++        pte_t *pteHead = walkpgdir(myproc()->pgdir, headVa, 0);      //now written to swap file
++       // cprintf("prev pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
++        *pteHead = (*pteHead|PTE_PG)&(~PTE_P);
++        //cprintf("new pteHead = %d\n", *walkpgdir(myproc()->pgdir, headVa, 0));
++
++
++
++        char *mem = kalloc();   //new memory acquired
++        if(mem == 0){
++          cprintf("T_PGFLT out of memory: pid=%d, name=%s\n", myproc()->pid, myproc()->name);
++          return;
++        }
++
++
++        //cprintf("swapVa = %d\n", swapVa);
++        pte_t *pteSwap = walkpgdir(myproc()->pgdir, swapVa, 0);    //will be brought back to memory
++        //cprintf("prev pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
++        *pteSwap = (((V2P(mem))>>12)<<12 |PTE_P|PTE_W|PTE_U ) ;
++        //cprintf("new pteSwap = %d\n", *walkpgdir(myproc()->pgdir, swapVa, 0));
++
++
++        ///writing previously swapped page to memory
++
++        int idx = INVALID_QUEUE_IDX;  //where to write in array structure
++
++        for(int i=0; i<MAX_PSYC_PAGES; i++){
++          if(myproc()->physPageInfo[i].dataPresent == 0){
++            idx = i;
++            break;
++          }
++
++        }
++
++        if(idx == INVALID_QUEUE_IDX){
++          panic("PANIC UNEXPECTED NO FREE PAGES\n");
++        }
++
++
++        int tail = myproc()->headOfQueueIdx;   //finding tail of the queue
++
++        if(tail == INVALID_QUEUE_IDX){    //queue empty
++            myproc()->headOfQueueIdx = idx;
++        }
++        else{
++          while(myproc()->physPageInfo[tail].nextIdx != INVALID_QUEUE_IDX){
++              tail = myproc()->physPageInfo[tail].nextIdx;
++          }
++          myproc()->physPageInfo[tail].nextIdx = idx;
++
++        }
++
++          myproc()->physPageInfo[idx].nextIdx = INVALID_QUEUE_IDX;
++          myproc()->physPageInfo[idx].dataPresent = 1;
++          myproc()->physPageInfo[idx].va = swapVa;
++
++
++
++
++      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE, PGSIZE/4);
++      memmove(swapVa, buf, PGSIZE/4);
++
++      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
++      memmove(swapVa+PGSIZE/4, buf, PGSIZE/4);
++
++      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
++      memmove(swapVa+2*PGSIZE/4, buf, PGSIZE/4);
++
++      readFromSwapFile(myproc(), buf, dummySwapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
++      memmove(swapVa+3*PGSIZE/4, buf, PGSIZE/4);
++
++
++
++
++
++
++        return;
++
++    }
++
++
++
++
++
++
+   default:
+     if(myproc() == 0 || (tf->cs&3) == 0){
+       // In kernel, it must be our mistake.
+diff --git a/trapasm.S b/trapasm.S
+old mode 100644
+new mode 100755
+diff --git a/traps.h b/traps.h
+old mode 100644
+new mode 100755
+diff --git a/types.h b/types.h
+old mode 100644
+new mode 100755
+diff --git a/uart.c b/uart.c
+old mode 100644
+new mode 100755
+diff --git a/ulib.c b/ulib.c
+old mode 100644
+new mode 100755
+diff --git a/umalloc.c b/umalloc.c
+old mode 100644
+new mode 100755
+diff --git a/user.h b/user.h
+old mode 100644
+new mode 100755
+index 4f99c52..0c6e8d5
+--- a/user.h
++++ b/user.h
+@@ -23,6 +23,7 @@ int getpid(void);
+ char* sbrk(int);
+ int sleep(int);
+ int uptime(void);
++int testCall(void);
+ 
+ // ulib.c
+ int stat(const char*, struct stat*);
+diff --git a/usertests.c b/usertests.c
+old mode 100644
+new mode 100755
+index a1e97e7..2416730
+--- a/usertests.c
++++ b/usertests.c
+@@ -1767,7 +1767,7 @@ main(int argc, char *argv[])
+   bigwrite();
+   bigargtest();
+   bsstest();
+-  sbrktest();
++  //sbrktest();
+   validatetest();
+ 
+   opentest();
+diff --git a/usys.S b/usys.S
+old mode 100644
+new mode 100755
+index 8bfd8a1..12ef699
+--- a/usys.S
++++ b/usys.S
+@@ -29,3 +29,4 @@ SYSCALL(getpid)
+ SYSCALL(sbrk)
+ SYSCALL(sleep)
+ SYSCALL(uptime)
++SYSCALL(testCall)
+diff --git a/vm.c b/vm.c
+old mode 100644
+new mode 100755
+index 7134cff..d234385
+--- a/vm.c
++++ b/vm.c
+@@ -68,8 +68,11 @@ mappages(pde_t *pgdir, void *va, uint size, uint pa, int perm)
+   for(;;){
+     if((pte = walkpgdir(pgdir, a, 1)) == 0)
+       return -1;
+-    if(*pte & PTE_P)
++    if(*pte & PTE_P){
++      cprintf("REMAP PANIC FROM MAPPAGES\n");
+       panic("remap");
++    }
++
+     *pte = pa | perm | PTE_P;
+     if(a == last)
+       break;
+@@ -216,14 +219,19 @@ loaduvm(pde_t *pgdir, char *addr, struct inode *ip, uint offset, uint sz)
+   return 0;
+ }
+ 
++
+ // Allocate page tables and physical memory to grow process from oldsz to
+ // newsz, which need not be page aligned.  Returns new size or 0 on error.
+ int
+ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+ {
++
++  cprintf("\n\n");
+   char *mem;
+   uint a;
+ 
++  struct proc* p = myproc();
++
+   if(newsz >= KERNBASE)
+     return 0;
+   if(newsz < oldsz)
+@@ -231,20 +239,168 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+ 
+   a = PGROUNDUP(oldsz);
+   for(; a < newsz; a += PGSIZE){
++
++    ///here changes are needed for checking if pages need to be swapped out
++    int newPageCreated = 1;
++
++    if(p->takenPhysPage>=MAX_PSYC_PAGES && p->takenSwapPage>=MAX_PSYC_PAGES){
++        cprintf("OUT OF MEMORY(1): pid=%d, name=%s\n", p->pid, p->name);
++        return a;
++
++    }
++
++    if(p->takenPhysPage>=MAX_PSYC_PAGES){
++      cprintf("\nIn allocuvm(): Page needs to be swapped out. pid:%d, name:%s\n", p->pid, p->name);
++
++
++      //swapPage(myproc());
++      int headIdx = p->headOfQueueIdx;
++
++      if(headIdx == INVALID_QUEUE_IDX){
++        panic("QUEUE ERROR");
++      }
++
++      char *headVa = p->physPageInfo[headIdx].va;   //va of the page that need to be paged out
++
++      ///updating queue
++
++
++      p->headOfQueueIdx = p->physPageInfo[headIdx].nextIdx; //head change
++
++
++
++      int tail = p->headOfQueueIdx;
++
++      if(tail == INVALID_QUEUE_IDX){    //queue empty
++          p->headOfQueueIdx = headIdx;
++      }
++      else{
++        while(p->physPageInfo[tail].nextIdx != INVALID_QUEUE_IDX){
++            tail = p->physPageInfo[tail].nextIdx;
++        }
++        p->physPageInfo[tail].nextIdx = headIdx;    //adding to tail
++
++      }
++        p->physPageInfo[headIdx].va = (char*)a;
++        p->physPageInfo[headIdx].dataPresent = 1;
++        p->physPageInfo[headIdx].nextIdx = INVALID_QUEUE_IDX;
++
++
++
++      ///finding where to write in swap file
++      int swapIdx = INVALID_QUEUE_IDX;
++
++      for(int i=0; i<MAX_PSYC_PAGES; i++){
++        if(p->swapPageInfo[i].dataPresent == 0){
++          swapIdx = i;
++          break;
++        }
++      }
++
++      if(swapIdx==INVALID_QUEUE_IDX){
++        cprintf("OUT OF MEMORY(2): pid=%d, name=%s\n", p->pid, p->name);
++        return a;
++      }
++
++      char buf[PGSIZE/4];
++
++      memmove(buf, headVa, PGSIZE/4);
++      writeToSwapFile(p, buf, swapIdx*PGSIZE, PGSIZE/4);
++
++      memmove(buf, headVa+PGSIZE/4, PGSIZE/4);
++      writeToSwapFile(p, buf, swapIdx*PGSIZE+PGSIZE/4, PGSIZE/4);
++
++      memmove(buf, headVa+2*PGSIZE/4, PGSIZE/4);
++      writeToSwapFile(p, buf, swapIdx*PGSIZE+2*PGSIZE/4, PGSIZE/4);
++
++      memmove(buf, headVa+3*PGSIZE/4, PGSIZE/4);
++      writeToSwapFile(p, buf, swapIdx*PGSIZE+3*PGSIZE/4, PGSIZE/4);
++
++      p->swapPageInfo[swapIdx].dataPresent = 1;
++      p->swapPageInfo[swapIdx].va = headVa;
++
++
++      //p->takenPhysPage = p->takenPhysPage-1;
++      p->takenSwapPage = p->takenSwapPage+1;
++
++
++      ///updating pgdir
++      kfree((char*)PTE_ADDR(P2V(*walkpgdir(p->pgdir, headVa, 0))));
++
++      //cprintf("headVa = %d\n", headVa);
++      pte_t *pteTemp = walkpgdir(p->pgdir, headVa, 0);
++      //cprintf("prev pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
++      *pteTemp = (*pteTemp|PTE_PG)&(~PTE_P);
++      //cprintf("new pte_t = %d\n", *walkpgdir(p->pgdir, headVa, 0));
++
++      cprintf("Swapped %d to swap, allocated %d\n", headVa, a);
++
++      newPageCreated=0;
++    }
++
++
+     mem = kalloc();
+     if(mem == 0){
+-      cprintf("allocuvm out of memory\n");
++      cprintf("allocuvm out of memory: pid=%d, name=%s\n", p->pid, p->name);
+       deallocuvm(pgdir, newsz, oldsz);
+       return 0;
+     }
++
++    ///mem should be added in the tail of the queue
++
++  if(newPageCreated){
++
++      int idx = INVALID_QUEUE_IDX;
++
++      for(int i=0; i<MAX_PSYC_PAGES; i++){
++        if(p->physPageInfo[i].dataPresent == 0){
++          idx = i;
++          break;
++        }
++
++      }
++
++      if(idx == INVALID_QUEUE_IDX){
++        panic("PANIC UNEXPECTED NO FREE PAGES\n");
++      }
++
++      int tail = p->headOfQueueIdx;
++
++      if(tail == INVALID_QUEUE_IDX){    //queue empty
++          p->headOfQueueIdx = idx;
++      }
++      else{
++        while(p->physPageInfo[tail].nextIdx != INVALID_QUEUE_IDX){
++            tail = p->physPageInfo[tail].nextIdx;
++        }
++        p->physPageInfo[tail].nextIdx = idx;
++
++      }
++
++        p->physPageInfo[idx].nextIdx = INVALID_QUEUE_IDX;
++        p->physPageInfo[idx].dataPresent = 1;
++        p->physPageInfo[idx].va = (char*)a;
++
++        p->takenPhysPage = p->takenPhysPage+1;
++
++
++      cprintf("\nNew Page %d allocated at idx = %d, takenPhysPage = %d for pid=%d, name=%s\n", a, idx, p->takenPhysPage, p->pid, p->name);
++
++  }
++  //no need for else as it is done previously
++
+     memset(mem, 0, PGSIZE);
++
+     if(mappages(pgdir, (char*)a, PGSIZE, V2P(mem), PTE_W|PTE_U) < 0){
+-      cprintf("allocuvm out of memory (2)\n");
++      cprintf("allocuvm out of memory (2): pid=%d, name=%s\n", p->pid, p->name);
+       deallocuvm(pgdir, newsz, oldsz);
+       kfree(mem);
+       return 0;
+     }
++
++
+   }
++
+   return newsz;
+ }
+ 
+@@ -252,6 +408,11 @@ allocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+ // newsz.  oldsz and newsz need not be page-aligned, nor does newsz
+ // need to be less than oldsz.  oldsz can be larger than the actual
+ // process size.  Returns the new process size.
++
++///original
++
++/*
++
+ int
+ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+ {
+@@ -277,6 +438,143 @@ deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
+   }
+   return newsz;
+ }
++*/
++///modified
++
++
++int
++deallocuvm(pde_t *pgdir, uint oldsz, uint newsz)
++{
++  pte_t *pte;
++  uint a, pa;
++
++  struct proc *p = myproc();
++
++  if(newsz >= oldsz)
++    return oldsz;
++
++  a = PGROUNDUP(newsz);
++  for(; a  < oldsz; a += PGSIZE){
++    pte = walkpgdir(pgdir, (char*)a, 0);
++
++      if(!pte){
++        a = PGADDR(PDX(a) + 1, 0, 0) - PGSIZE;
++
++      }
++      else if((*pte & PTE_P) != 0){ ///should remove from main memory
++
++      if(strncmp(p->name, "init", 4)==0 || strncmp(p->name, "sh", 2)==0 ){
++        goto queueBypass;
++      }
++
++      //cprintf("\nIn deallocuvm(): should remove %d from MAIN MEMORY for pid=%d, name=%s\n", a, p->pid, p->name);
++
++      char *va = (char*) a;
++
++
++      ///update queue
++      int idx = INVALID_QUEUE_IDX;
++      int parentIdx = INVALID_QUEUE_IDX;
++
++      for(int i=0; i<MAX_PSYC_PAGES; i++){
++        if(p->physPageInfo[i].va == va && p->physPageInfo[i].dataPresent == 1){
++          idx = i;
++          break;
++        }
++      }
++
++      if(idx == INVALID_QUEUE_IDX){
++          //cprintf("NOT FOUND IN QUEUE(1)\n");
++          goto queueBypass;
++      }
++
++
++      if(idx == p->headOfQueueIdx){ //in head
++        p->headOfQueueIdx = p->physPageInfo[idx].nextIdx;
++      }
++      else{
++        parentIdx = p->headOfQueueIdx;
++
++        while(p->physPageInfo[parentIdx].nextIdx != idx && p->physPageInfo[parentIdx].nextIdx != INVALID_QUEUE_IDX){
++          parentIdx = p->physPageInfo[parentIdx].nextIdx;
++        }
++
++        if(p->physPageInfo[parentIdx].nextIdx != idx){
++          //cprintf("NOT FOUND IN QUEUE(2)\n");
++          goto queueBypass;
++        }
++
++        p->physPageInfo[parentIdx].nextIdx = p->physPageInfo[idx].nextIdx; //parent to next, skipping idx
++
++
++      }
++
++      p->physPageInfo[idx].va = INVALID_ADDRESS;
++      p->physPageInfo[idx].dataPresent = 0;
++      p->physPageInfo[idx].nextIdx = INVALID_QUEUE_IDX;
++
++      p->takenPhysPage--;
++
++      cprintf("Removed %d from MAIN MEMORY for pid=%d, name=%s\n", a, p->pid, p->name);
++
++      queueBypass:
++
++      pa = PTE_ADDR(*pte);
++
++      if(pa == 0)
++        panic("kfree");
++      char *v = P2V(pa);
++      kfree(v);
++
++      *pte = 0;
++
++
++
++
++    }
++    else if( (*pte&PTE_P)==0 && (*pte&(~PTE_PG))!=0 ){  ///in swap file
++
++      if(strncmp(p->name, "init", 4)==0 ){  //|| strncmp(p->name, "sh", 2)==0
++        goto swapBypass;
++      }
++
++      //cprintf("\nIn deallocuvm(): should remove %d from SWAP for pid=%d, name=%s\n", a, p->pid, p->name);
++
++      char *va = (char*) a;
++
++      int swapIdx = INVALID_QUEUE_IDX;
++      for(int i=0; i<MAX_PSYC_PAGES; i++){
++        if(p->swapPageInfo[i].va == va && p->swapPageInfo[i].dataPresent == 1){
++          swapIdx = i;
++          break;
++        }
++      }
++
++      if(swapIdx==INVALID_QUEUE_IDX){
++        //cprintf("NOT FOUND IN SWAP\n");
++        goto swapBypass;
++      }
++
++      p->swapPageInfo[swapIdx].va = INVALID_ADDRESS;
++      p->swapPageInfo[swapIdx].dataPresent = 0;
++
++      p->takenSwapPage--;
++
++      cprintf("Discarded %d from SWAP. pid=%d, name=%s\n", va, p->pid, p->name);
++
++
++      swapBypass:
++
++      *pte = 0;
++
++    }
++  }
++
++  return newsz;
++
++}
++
++
+ 
+ // Free a page table and all the physical memory pages
+ // in the user part.
+diff --git a/wc.c b/wc.c
+old mode 100644
+new mode 100755
+diff --git a/x86.h b/x86.h
+old mode 100644
+new mode 100755
+diff --git a/zombie.c b/zombie.c
+old mode 100644
+new mode 100755
