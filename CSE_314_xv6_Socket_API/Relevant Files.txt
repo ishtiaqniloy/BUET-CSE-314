@@ -1,0 +1,8 @@
+Relevant Files:
+1. proc.c -> sock.c 		[comparing with proc.c]
+2. proc.h -> sock.h 		[states(c,l,cn), structure(lport, rport, state, buffer, dataAvailable, owner, ...), ...]
+3. sysproc.c -> syssock.c 	[argint, argstr, ...]
+4. syscall.c & syscall.h
+5. defs.h 					
+6. param.h					[NSOCk]
+7. socktest.c

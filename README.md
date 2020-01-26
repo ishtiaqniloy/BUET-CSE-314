@@ -13,4 +13,8 @@ A new system call has been added to the xv6 operating systems
 Specifications are in "Specifications.txt"  
 Original xv6-public repository: https://github.com/mit-pdos/xv6-public  
 
+## CSE_314_xv6_Socket_API
+Socket loopback API is added to the xv6 operating systems using 5 system calls: listen, connect, send, receive and disconnect  
+Specifications are in "Specifications.txt"  
+Original xv6-public repository: https://github.com/mit-pdos/xv6-public  
 
